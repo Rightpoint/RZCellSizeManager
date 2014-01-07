@@ -1,0 +1,522 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		980279C3186482E3007FD75F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 980279C2186482E3007FD75F /* Foundation.framework */; };
+		980279C5186482E3007FD75F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 980279C4186482E3007FD75F /* CoreGraphics.framework */; };
+		980279C7186482E3007FD75F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 980279C6186482E3007FD75F /* UIKit.framework */; };
+		980279CD186482E3007FD75F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 980279CB186482E3007FD75F /* InfoPlist.strings */; };
+		980279CF186482E3007FD75F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 980279CE186482E3007FD75F /* main.m */; };
+		980279D3186482E3007FD75F /* RZAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 980279D2186482E3007FD75F /* RZAppDelegate.m */; };
+		980279DB186482E3007FD75F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 980279DA186482E3007FD75F /* Images.xcassets */; };
+		980279E2186482E3007FD75F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 980279E1186482E3007FD75F /* XCTest.framework */; };
+		980279E3186482E3007FD75F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 980279C2186482E3007FD75F /* Foundation.framework */; };
+		980279E4186482E3007FD75F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 980279C6186482E3007FD75F /* UIKit.framework */; };
+		980279EC186482E3007FD75F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 980279EA186482E3007FD75F /* InfoPlist.strings */; };
+		980279EE186482E3007FD75F /* RZCellSizeManagerDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 980279ED186482E3007FD75F /* RZCellSizeManagerDemoTests.m */; };
+		980279FC1864835B007FD75F /* RZCellSizeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 980279F91864835B007FD75F /* RZCellSizeManager.m */; };
+		98027A0618649DFA007FD75F /* RZTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98027A0418649DFA007FD75F /* RZTableViewController.m */; };
+		98027A0718649DFA007FD75F /* RZTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98027A0518649DFA007FD75F /* RZTableViewController.xib */; };
+		98027A0B18649E12007FD75F /* RZTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 98027A0918649E12007FD75F /* RZTableViewCell.m */; };
+		98027A0C18649E12007FD75F /* RZTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98027A0A18649E12007FD75F /* RZTableViewCell.xib */; };
+		98F6B617187C8B3700FA9C98 /* RZCellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F6B616187C8B3700FA9C98 /* RZCellData.m */; };
+		98F6B61B187C8DA500FA9C98 /* NSString+RandomString.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F6B61A187C8DA500FA9C98 /* NSString+RandomString.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		980279E5186482E3007FD75F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 980279B7186482E3007FD75F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 980279BE186482E3007FD75F;
+			remoteInfo = RZCellSizeManagerDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		980279BF186482E3007FD75F /* RZCellSizeManagerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RZCellSizeManagerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		980279C2186482E3007FD75F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		980279C4186482E3007FD75F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		980279C6186482E3007FD75F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		980279CA186482E3007FD75F /* RZCellSizeManagerDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RZCellSizeManagerDemo-Info.plist"; sourceTree = "<group>"; };
+		980279CC186482E3007FD75F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		980279CE186482E3007FD75F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		980279D0186482E3007FD75F /* RZCellSizeManagerDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RZCellSizeManagerDemo-Prefix.pch"; sourceTree = "<group>"; };
+		980279D1186482E3007FD75F /* RZAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZAppDelegate.h; sourceTree = "<group>"; };
+		980279D2186482E3007FD75F /* RZAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZAppDelegate.m; sourceTree = "<group>"; };
+		980279DA186482E3007FD75F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		980279E0186482E3007FD75F /* RZCellSizeManagerDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RZCellSizeManagerDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		980279E1186482E3007FD75F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		980279E9186482E3007FD75F /* RZCellSizeManagerDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RZCellSizeManagerDemoTests-Info.plist"; sourceTree = "<group>"; };
+		980279EB186482E3007FD75F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		980279ED186482E3007FD75F /* RZCellSizeManagerDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZCellSizeManagerDemoTests.m; sourceTree = "<group>"; };
+		980279F81864835B007FD75F /* RZCellSizeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RZCellSizeManager.h; path = ../RZCellSizeManager/RZCellSizeManager.h; sourceTree = "<group>"; };
+		980279F91864835B007FD75F /* RZCellSizeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RZCellSizeManager.m; path = ../RZCellSizeManager/RZCellSizeManager.m; sourceTree = "<group>"; };
+		98027A0318649DFA007FD75F /* RZTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZTableViewController.h; sourceTree = "<group>"; };
+		98027A0418649DFA007FD75F /* RZTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZTableViewController.m; sourceTree = "<group>"; };
+		98027A0518649DFA007FD75F /* RZTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZTableViewController.xib; sourceTree = "<group>"; };
+		98027A0818649E12007FD75F /* RZTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZTableViewCell.h; sourceTree = "<group>"; };
+		98027A0918649E12007FD75F /* RZTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZTableViewCell.m; sourceTree = "<group>"; };
+		98027A0A18649E12007FD75F /* RZTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZTableViewCell.xib; sourceTree = "<group>"; };
+		98F6B615187C8B3700FA9C98 /* RZCellData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZCellData.h; sourceTree = "<group>"; };
+		98F6B616187C8B3700FA9C98 /* RZCellData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZCellData.m; sourceTree = "<group>"; };
+		98F6B619187C8DA500FA9C98 /* NSString+RandomString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+RandomString.h"; path = "Utility/NSString+RandomString.h"; sourceTree = "<group>"; };
+		98F6B61A187C8DA500FA9C98 /* NSString+RandomString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+RandomString.m"; path = "Utility/NSString+RandomString.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		980279BC186482E3007FD75F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				980279C5186482E3007FD75F /* CoreGraphics.framework in Frameworks */,
+				980279C7186482E3007FD75F /* UIKit.framework in Frameworks */,
+				980279C3186482E3007FD75F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		980279DD186482E3007FD75F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				980279E2186482E3007FD75F /* XCTest.framework in Frameworks */,
+				980279E4186482E3007FD75F /* UIKit.framework in Frameworks */,
+				980279E3186482E3007FD75F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		980279B6186482E3007FD75F = {
+			isa = PBXGroup;
+			children = (
+				980279F718648343007FD75F /* RZCellSizeManager */,
+				980279C8186482E3007FD75F /* RZCellSizeManagerDemo */,
+				980279E7186482E3007FD75F /* RZCellSizeManagerDemoTests */,
+				980279C1186482E3007FD75F /* Frameworks */,
+				980279C0186482E3007FD75F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		980279C0186482E3007FD75F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				980279BF186482E3007FD75F /* RZCellSizeManagerDemo.app */,
+				980279E0186482E3007FD75F /* RZCellSizeManagerDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		980279C1186482E3007FD75F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				980279C2186482E3007FD75F /* Foundation.framework */,
+				980279C4186482E3007FD75F /* CoreGraphics.framework */,
+				980279C6186482E3007FD75F /* UIKit.framework */,
+				980279E1186482E3007FD75F /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		980279C8186482E3007FD75F /* RZCellSizeManagerDemo */ = {
+			isa = PBXGroup;
+			children = (
+				98F6B61C187C970E00FA9C98 /* TableView */,
+				98F6B618187C8D8600FA9C98 /* Utility */,
+				980279D1186482E3007FD75F /* RZAppDelegate.h */,
+				980279D2186482E3007FD75F /* RZAppDelegate.m */,
+				980279C9186482E3007FD75F /* Supporting Files */,
+				980279DA186482E3007FD75F /* Images.xcassets */,
+			);
+			path = RZCellSizeManagerDemo;
+			sourceTree = "<group>";
+		};
+		980279C9186482E3007FD75F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				980279CA186482E3007FD75F /* RZCellSizeManagerDemo-Info.plist */,
+				980279CB186482E3007FD75F /* InfoPlist.strings */,
+				980279CE186482E3007FD75F /* main.m */,
+				980279D0186482E3007FD75F /* RZCellSizeManagerDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		980279E7186482E3007FD75F /* RZCellSizeManagerDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				980279ED186482E3007FD75F /* RZCellSizeManagerDemoTests.m */,
+				980279E8186482E3007FD75F /* Supporting Files */,
+			);
+			path = RZCellSizeManagerDemoTests;
+			sourceTree = "<group>";
+		};
+		980279E8186482E3007FD75F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				980279E9186482E3007FD75F /* RZCellSizeManagerDemoTests-Info.plist */,
+				980279EA186482E3007FD75F /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		980279F718648343007FD75F /* RZCellSizeManager */ = {
+			isa = PBXGroup;
+			children = (
+				980279F81864835B007FD75F /* RZCellSizeManager.h */,
+				980279F91864835B007FD75F /* RZCellSizeManager.m */,
+			);
+			name = RZCellSizeManager;
+			sourceTree = "<group>";
+		};
+		98F6B618187C8D8600FA9C98 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				98F6B619187C8DA500FA9C98 /* NSString+RandomString.h */,
+				98F6B61A187C8DA500FA9C98 /* NSString+RandomString.m */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
+		98F6B61C187C970E00FA9C98 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				98027A0318649DFA007FD75F /* RZTableViewController.h */,
+				98027A0418649DFA007FD75F /* RZTableViewController.m */,
+				98027A0518649DFA007FD75F /* RZTableViewController.xib */,
+				98027A0818649E12007FD75F /* RZTableViewCell.h */,
+				98027A0918649E12007FD75F /* RZTableViewCell.m */,
+				98027A0A18649E12007FD75F /* RZTableViewCell.xib */,
+				98F6B615187C8B3700FA9C98 /* RZCellData.h */,
+				98F6B616187C8B3700FA9C98 /* RZCellData.m */,
+			);
+			name = TableView;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		980279BE186482E3007FD75F /* RZCellSizeManagerDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 980279F1186482E3007FD75F /* Build configuration list for PBXNativeTarget "RZCellSizeManagerDemo" */;
+			buildPhases = (
+				980279BB186482E3007FD75F /* Sources */,
+				980279BC186482E3007FD75F /* Frameworks */,
+				980279BD186482E3007FD75F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RZCellSizeManagerDemo;
+			productName = RZCellSizeManagerDemo;
+			productReference = 980279BF186482E3007FD75F /* RZCellSizeManagerDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		980279DF186482E3007FD75F /* RZCellSizeManagerDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 980279F4186482E3007FD75F /* Build configuration list for PBXNativeTarget "RZCellSizeManagerDemoTests" */;
+			buildPhases = (
+				980279DC186482E3007FD75F /* Sources */,
+				980279DD186482E3007FD75F /* Frameworks */,
+				980279DE186482E3007FD75F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				980279E6186482E3007FD75F /* PBXTargetDependency */,
+			);
+			name = RZCellSizeManagerDemoTests;
+			productName = RZCellSizeManagerDemoTests;
+			productReference = 980279E0186482E3007FD75F /* RZCellSizeManagerDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		980279B7186482E3007FD75F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = RZ;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = Raizlabs;
+				TargetAttributes = {
+					980279DF186482E3007FD75F = {
+						TestTargetID = 980279BE186482E3007FD75F;
+					};
+				};
+			};
+			buildConfigurationList = 980279BA186482E3007FD75F /* Build configuration list for PBXProject "RZCellSizeManagerDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 980279B6186482E3007FD75F;
+			productRefGroup = 980279C0186482E3007FD75F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				980279BE186482E3007FD75F /* RZCellSizeManagerDemo */,
+				980279DF186482E3007FD75F /* RZCellSizeManagerDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		980279BD186482E3007FD75F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98027A0C18649E12007FD75F /* RZTableViewCell.xib in Resources */,
+				980279DB186482E3007FD75F /* Images.xcassets in Resources */,
+				98027A0718649DFA007FD75F /* RZTableViewController.xib in Resources */,
+				980279CD186482E3007FD75F /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		980279DE186482E3007FD75F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				980279EC186482E3007FD75F /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		980279BB186482E3007FD75F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98F6B617187C8B3700FA9C98 /* RZCellData.m in Sources */,
+				980279FC1864835B007FD75F /* RZCellSizeManager.m in Sources */,
+				980279D3186482E3007FD75F /* RZAppDelegate.m in Sources */,
+				98027A0B18649E12007FD75F /* RZTableViewCell.m in Sources */,
+				98F6B61B187C8DA500FA9C98 /* NSString+RandomString.m in Sources */,
+				980279CF186482E3007FD75F /* main.m in Sources */,
+				98027A0618649DFA007FD75F /* RZTableViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		980279DC186482E3007FD75F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				980279EE186482E3007FD75F /* RZCellSizeManagerDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		980279E6186482E3007FD75F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 980279BE186482E3007FD75F /* RZCellSizeManagerDemo */;
+			targetProxy = 980279E5186482E3007FD75F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		980279CB186482E3007FD75F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				980279CC186482E3007FD75F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		980279EA186482E3007FD75F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				980279EB186482E3007FD75F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		980279EF186482E3007FD75F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		980279F0186482E3007FD75F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		980279F2186482E3007FD75F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RZCellSizeManagerDemo/RZCellSizeManagerDemo-Prefix.pch";
+				INFOPLIST_FILE = "RZCellSizeManagerDemo/RZCellSizeManagerDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		980279F3186482E3007FD75F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RZCellSizeManagerDemo/RZCellSizeManagerDemo-Prefix.pch";
+				INFOPLIST_FILE = "RZCellSizeManagerDemo/RZCellSizeManagerDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		980279F5186482E3007FD75F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/RZCellSizeManagerDemo.app/RZCellSizeManagerDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RZCellSizeManagerDemo/RZCellSizeManagerDemo-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "RZCellSizeManagerDemoTests/RZCellSizeManagerDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		980279F6186482E3007FD75F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/RZCellSizeManagerDemo.app/RZCellSizeManagerDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RZCellSizeManagerDemo/RZCellSizeManagerDemo-Prefix.pch";
+				INFOPLIST_FILE = "RZCellSizeManagerDemoTests/RZCellSizeManagerDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		980279BA186482E3007FD75F /* Build configuration list for PBXProject "RZCellSizeManagerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				980279EF186482E3007FD75F /* Debug */,
+				980279F0186482E3007FD75F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		980279F1186482E3007FD75F /* Build configuration list for PBXNativeTarget "RZCellSizeManagerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				980279F2186482E3007FD75F /* Debug */,
+				980279F3186482E3007FD75F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		980279F4186482E3007FD75F /* Build configuration list for PBXNativeTarget "RZCellSizeManagerDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				980279F5186482E3007FD75F /* Debug */,
+				980279F6186482E3007FD75F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 980279B7186482E3007FD75F /* Project object */;
+}
