@@ -52,11 +52,15 @@ And your done.  All of your cell's sizes will be cached so that any future calls
 
 
 Invalidating Sizes
-==================
+------------------
 
 if you are using RZCellSizeManager and you data changes you will need to invalidate it's cache so that it can compute the new heights.  This can be done by giving it a specific index path, or you can just invalidate the entire cache.
 ```
 [self.sizeManager invalidateCellHeightCache];
 ```
 
+Next Steps
+==========
+
+Check out the demo project for a simple example of how to use the ```RZCellSizeManager``` and feel free to add issue's and pull requests if you have good ideas for future enhancments.
 
