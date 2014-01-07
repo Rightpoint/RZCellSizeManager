@@ -9,8 +9,6 @@ RZCellSizeManager is an object used to cache and get cell heights for UICollecti
 Getting Started
 ===============
 
-Setup
------
 
 Copy the RZCellSizeManager folder into your project.  All you need is the ```RZCellSizeManager.h``` and ```RZCellSizeManager.m```
 
