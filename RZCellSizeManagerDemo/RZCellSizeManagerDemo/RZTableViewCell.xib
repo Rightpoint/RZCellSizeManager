@@ -39,6 +39,7 @@
                     <constraint firstAttribute="centerX" secondItem="yg5-10-ZpI" secondAttribute="centerX" id="z0q-RU-9X9"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="descriptionLabel" destination="yg5-10-ZpI" id="n2S-s1-QfB"/>
                 <outlet property="titleLabel" destination="U3O-pz-cb1" id="JNx-Sk-ZsX"/>

@@ -24,8 +24,16 @@
 		98027A0718649DFA007FD75F /* RZTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98027A0518649DFA007FD75F /* RZTableViewController.xib */; };
 		98027A0B18649E12007FD75F /* RZTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 98027A0918649E12007FD75F /* RZTableViewCell.m */; };
 		98027A0C18649E12007FD75F /* RZTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98027A0A18649E12007FD75F /* RZTableViewCell.xib */; };
+		983CCEBE187DE3890051B482 /* RZCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 983CCEBD187DE3890051B482 /* RZCoreDataManager.m */; };
+		983CCEC1187DE45D0051B482 /* RZModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 983CCEBF187DE45D0051B482 /* RZModel.xcdatamodeld */; };
+		98AE9CFD187DFB5E0033C623 /* RZEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 98AE9CFC187DFB5E0033C623 /* RZEntry.m */; };
+		98AE9D01187DFD480033C623 /* RZCoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98AE9CFF187DFD480033C623 /* RZCoreDataTableViewController.m */; };
+		98AE9D02187DFD480033C623 /* RZCoreDataTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98AE9D00187DFD480033C623 /* RZCoreDataTableViewController.xib */; };
 		98F6B617187C8B3700FA9C98 /* RZCellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F6B616187C8B3700FA9C98 /* RZCellData.m */; };
 		98F6B61B187C8DA500FA9C98 /* NSString+RandomString.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F6B61A187C8DA500FA9C98 /* NSString+RandomString.m */; };
+		98FFC0301886E73200DB5746 /* RZCellSizeManager+CoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FFC02F1886E73200DB5746 /* RZCellSizeManager+CoreData.m */; };
+		98FFC0341886EF0400DB5746 /* RZRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FFC0321886EF0400DB5746 /* RZRootViewController.m */; };
+		98FFC0351886EF0400DB5746 /* RZRootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98FFC0331886EF0400DB5746 /* RZRootViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,10 +71,23 @@
 		98027A0818649E12007FD75F /* RZTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZTableViewCell.h; sourceTree = "<group>"; };
 		98027A0918649E12007FD75F /* RZTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZTableViewCell.m; sourceTree = "<group>"; };
 		98027A0A18649E12007FD75F /* RZTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZTableViewCell.xib; sourceTree = "<group>"; };
+		983CCEBC187DE3890051B482 /* RZCoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RZCoreDataManager.h; path = CoreData/RZCoreDataManager.h; sourceTree = "<group>"; };
+		983CCEBD187DE3890051B482 /* RZCoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RZCoreDataManager.m; path = CoreData/RZCoreDataManager.m; sourceTree = "<group>"; };
+		983CCEC0187DE45D0051B482 /* RZModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RZModel.xcdatamodel; sourceTree = "<group>"; };
+		98AE9CFB187DFB5E0033C623 /* RZEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RZEntry.h; path = CoreData/RZEntry.h; sourceTree = "<group>"; };
+		98AE9CFC187DFB5E0033C623 /* RZEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RZEntry.m; path = CoreData/RZEntry.m; sourceTree = "<group>"; };
+		98AE9CFE187DFD480033C623 /* RZCoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RZCoreDataTableViewController.h; path = CoreData/RZCoreDataTableViewController.h; sourceTree = "<group>"; };
+		98AE9CFF187DFD480033C623 /* RZCoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RZCoreDataTableViewController.m; path = CoreData/RZCoreDataTableViewController.m; sourceTree = "<group>"; };
+		98AE9D00187DFD480033C623 /* RZCoreDataTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RZCoreDataTableViewController.xib; path = CoreData/RZCoreDataTableViewController.xib; sourceTree = "<group>"; };
 		98F6B615187C8B3700FA9C98 /* RZCellData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZCellData.h; sourceTree = "<group>"; };
 		98F6B616187C8B3700FA9C98 /* RZCellData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZCellData.m; sourceTree = "<group>"; };
 		98F6B619187C8DA500FA9C98 /* NSString+RandomString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+RandomString.h"; path = "Utility/NSString+RandomString.h"; sourceTree = "<group>"; };
 		98F6B61A187C8DA500FA9C98 /* NSString+RandomString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+RandomString.m"; path = "Utility/NSString+RandomString.m"; sourceTree = "<group>"; };
+		98FFC02E1886E73200DB5746 /* RZCellSizeManager+CoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "RZCellSizeManager+CoreData.h"; path = "../RZCellSizeManagerExtensions/RZCellSizeManager+CoreData.h"; sourceTree = "<group>"; };
+		98FFC02F1886E73200DB5746 /* RZCellSizeManager+CoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "RZCellSizeManager+CoreData.m"; path = "../RZCellSizeManagerExtensions/RZCellSizeManager+CoreData.m"; sourceTree = "<group>"; };
+		98FFC0311886EF0400DB5746 /* RZRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZRootViewController.h; sourceTree = "<group>"; };
+		98FFC0321886EF0400DB5746 /* RZRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZRootViewController.m; sourceTree = "<group>"; };
+		98FFC0331886EF0400DB5746 /* RZRootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZRootViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,8 +148,12 @@
 		980279C8186482E3007FD75F /* RZCellSizeManagerDemo */ = {
 			isa = PBXGroup;
 			children = (
+				983CCEBB187DE36E0051B482 /* CoreData */,
 				98F6B61C187C970E00FA9C98 /* TableView */,
 				98F6B618187C8D8600FA9C98 /* Utility */,
+				98FFC0311886EF0400DB5746 /* RZRootViewController.h */,
+				98FFC0321886EF0400DB5746 /* RZRootViewController.m */,
+				98FFC0331886EF0400DB5746 /* RZRootViewController.xib */,
 				980279D1186482E3007FD75F /* RZAppDelegate.h */,
 				980279D2186482E3007FD75F /* RZAppDelegate.m */,
 				980279C9186482E3007FD75F /* Supporting Files */,
@@ -171,8 +196,25 @@
 			children = (
 				980279F81864835B007FD75F /* RZCellSizeManager.h */,
 				980279F91864835B007FD75F /* RZCellSizeManager.m */,
+				98FFC02E1886E73200DB5746 /* RZCellSizeManager+CoreData.h */,
+				98FFC02F1886E73200DB5746 /* RZCellSizeManager+CoreData.m */,
 			);
 			name = RZCellSizeManager;
+			sourceTree = "<group>";
+		};
+		983CCEBB187DE36E0051B482 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				98AE9CFE187DFD480033C623 /* RZCoreDataTableViewController.h */,
+				98AE9CFF187DFD480033C623 /* RZCoreDataTableViewController.m */,
+				98AE9D00187DFD480033C623 /* RZCoreDataTableViewController.xib */,
+				983CCEBC187DE3890051B482 /* RZCoreDataManager.h */,
+				983CCEBD187DE3890051B482 /* RZCoreDataManager.m */,
+				983CCEBF187DE45D0051B482 /* RZModel.xcdatamodeld */,
+				98AE9CFB187DFB5E0033C623 /* RZEntry.h */,
+				98AE9CFC187DFB5E0033C623 /* RZEntry.m */,
+			);
+			name = CoreData;
 			sourceTree = "<group>";
 		};
 		98F6B618187C8D8600FA9C98 /* Utility */ = {
@@ -278,7 +320,9 @@
 			files = (
 				98027A0C18649E12007FD75F /* RZTableViewCell.xib in Resources */,
 				980279DB186482E3007FD75F /* Images.xcassets in Resources */,
+				98FFC0351886EF0400DB5746 /* RZRootViewController.xib in Resources */,
 				98027A0718649DFA007FD75F /* RZTableViewController.xib in Resources */,
+				98AE9D02187DFD480033C623 /* RZCoreDataTableViewController.xib in Resources */,
 				980279CD186482E3007FD75F /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,13 +342,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				983CCEBE187DE3890051B482 /* RZCoreDataManager.m in Sources */,
 				98F6B617187C8B3700FA9C98 /* RZCellData.m in Sources */,
+				98AE9D01187DFD480033C623 /* RZCoreDataTableViewController.m in Sources */,
+				98AE9CFD187DFB5E0033C623 /* RZEntry.m in Sources */,
 				980279FC1864835B007FD75F /* RZCellSizeManager.m in Sources */,
+				98FFC0341886EF0400DB5746 /* RZRootViewController.m in Sources */,
 				980279D3186482E3007FD75F /* RZAppDelegate.m in Sources */,
 				98027A0B18649E12007FD75F /* RZTableViewCell.m in Sources */,
 				98F6B61B187C8DA500FA9C98 /* NSString+RandomString.m in Sources */,
+				983CCEC1187DE45D0051B482 /* RZModel.xcdatamodeld in Sources */,
 				980279CF186482E3007FD75F /* main.m in Sources */,
 				98027A0618649DFA007FD75F /* RZTableViewController.m in Sources */,
+				98FFC0301886E73200DB5746 /* RZCellSizeManager+CoreData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,6 +567,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		983CCEBF187DE45D0051B482 /* RZModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				983CCEC0187DE45D0051B482 /* RZModel.xcdatamodel */,
+			);
+			currentVersion = 983CCEC0187DE45D0051B482 /* RZModel.xcdatamodel */;
+			name = RZModel.xcdatamodeld;
+			path = CoreData/RZModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 980279B7186482E3007FD75F /* Project object */;
 }

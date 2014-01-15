@@ -8,15 +8,15 @@
 
 #import "RZAppDelegate.h"
 
-#import "RZTableViewController.h"
+
+#import "RZRootViewController.h"
 
 @implementation RZAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    RZRootViewController* rootVC = [[RZRootViewController alloc] init];
-    RZTableViewController* tableVC = [[RZTableViewController alloc] init];
+    UIViewController* tableVC = [[RZRootViewController alloc] init];
     UINavigationController* navVC = [[UINavigationController alloc] initWithRootViewController:tableVC];
     [self.window setRootViewController:navVC];
     [self.window makeKeyAndVisible];

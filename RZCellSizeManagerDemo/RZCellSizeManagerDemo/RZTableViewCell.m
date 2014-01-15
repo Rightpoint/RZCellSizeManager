@@ -9,6 +9,7 @@
 #import "RZTableViewCell.h"
 
 #import "RZCellData.h"
+#import "RZEntry.h"
 
 @interface RZTableViewCell ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -44,6 +45,13 @@
     self.titleLabel.text = cellData.title;
     self.descriptionLabel.text = cellData.subTitle;
     _cellData = cellData;
+}
+
+- (void)setCellEntry:(RZEntry *)cellEntry
+{
+    self.titleLabel.text = cellEntry.title;
+    self.descriptionLabel.text = cellEntry.subTitle;
+    _cellEntry = cellEntry;
 }
 
 @end

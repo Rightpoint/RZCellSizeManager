@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray* dataArray;
 @property (strong, nonatomic) RZCellSizeManager* sizeManager;
+
 @end
 
 @implementation RZTableViewController
@@ -37,6 +38,7 @@
 
 - (void)configureDataSource
 {
+    // Create an array of random objects to be the datasource so its different every time.
     NSMutableArray* arry = [NSMutableArray array];
     for (int i = 0; i<kRZMaxCells; i++)
     {
@@ -61,6 +63,7 @@
     [self.tableView registerNib:[RZTableViewCell reuseNib] forCellReuseIdentifier:[RZTableViewCell reuseIdentifier]];
     
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonItemStyleDone target:self action:@selector(reloadPressed)]];
+
 }
 
 - (void)reloadPressed
