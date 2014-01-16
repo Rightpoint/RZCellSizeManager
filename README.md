@@ -3,7 +3,7 @@ RZCellSizeManager
 
 Dynamic size computation and cacheing for cells.
 
-RZCellSizeManager is an object used to cache and get cell heights for UICollectionView cells and UITableView cells.  It works expecially well when using AutoLayout but can be used anytime you want to cache cell sizes.
+RZCellSizeManager is an object used to cache and get cell heights for UICollectionView cells and UITableView cells.  It works especially well when using AutoLayout but can be used anytime you want to cache cell sizes.
 
 
 Getting Started
@@ -16,6 +16,10 @@ Implementation
 --------------
 
 Using RZCellSizeManager is easy.  All you have to do is create an instance of the size manager using one of the initializers and set up a configuration block.  A configuration block is what will happen to the cell to adjust its height.
+
+```
+@property (strong, nonatomic) RZCellSizeManager* sizeManager;
+```
 
 ```
 self.sizeManager = [[RZCellSizeManager alloc] initWithCellClassName:@"RZTableViewCell" configurationBlock:^(RZTableViewCell* cell, id object) {
@@ -31,7 +35,6 @@ In this case we are setting an object on the cell which will set two different l
 {
     self.titleLabel.text = cellData.title;
     self.descriptionLabel.text = cellData.subTitle;
-    _cellData = cellData;
 }
 ```
 
@@ -62,5 +65,5 @@ if you are using RZCellSizeManager and you data changes you will need to invalid
 Next Steps
 ==========
 
-Check out the demo project for a simple example of how to use the ```RZCellSizeManager``` and feel free to add issue's and pull requests if you have good ideas for future enhancments.
+Check out the demo project for a simple example of how to use the ```RZCellSizeManager``` and feel free to add issue's and pull requests if you have good ideas for future enhancements.
 
