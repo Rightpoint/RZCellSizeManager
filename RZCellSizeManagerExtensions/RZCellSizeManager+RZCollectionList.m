@@ -76,7 +76,7 @@ static char s_RZAutoLayoutHeightManagerToken;
 @end
 
 
-@implementation RZCellHeightManager (RZCollectionList)
+@implementation RZCellSizeManager (RZCollectionList)
 
 - (void)rz_autoInvalidateWithCollectionList:(id<RZCollectionList>)collectionList
 {
