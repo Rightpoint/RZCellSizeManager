@@ -16,3 +16,11 @@
 + (instancetype)cellDataWithTitle:(NSString *)title subTitle:(NSString *)subTitle;
 
 @end
+
+@interface RZOtherCellData : NSObject
+
+@property (strong, readonly, nonatomic) NSString* title;
+
++ (instancetype)otherCellDataWithTitle:(NSString *)title;
+
+@end

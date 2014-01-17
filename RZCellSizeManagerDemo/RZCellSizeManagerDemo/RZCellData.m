@@ -23,3 +23,19 @@
     return data;
 }
 @end
+
+
+@interface RZOtherCellData ()
+@property (strong, readwrite, nonatomic) NSString* title;
+@end
+
+@implementation RZOtherCellData
+
++ (instancetype)otherCellDataWithTitle:(NSString *)title
+{
+    RZOtherCellData* data = [RZOtherCellData new];
+    data.title = title;
+    return data;
+}
+
+@end

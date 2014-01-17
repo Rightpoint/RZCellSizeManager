@@ -73,7 +73,7 @@
     // NOTE: if you are doing things that don't pertain to layout in the setCellData: method it may be best to create a different
     //  method for computing the height or add an optional parameter setCellData:forHeight: to not do additional work,  This
     //  expecially applies if you are loading images or anything of that manor.
-    self.sizeManager = [[RZCellSizeManager alloc] initWithCellClassName:@"RZTableViewCell" configurationBlock:^(RZTableViewCell* cell, id object) {
+    self.sizeManager = [[RZCellSizeManager alloc] initWithCellClassName:@"RZTableViewCell" cellReuseIdentifier:nil configurationBlock:^(RZTableViewCell* cell, id object) {
         [cell setCellData:object];
     }];
     
@@ -91,7 +91,7 @@
 {
     // In this case we are going to invalidate our entire height cache since we are changing the entire datasource.  It is possible
     //  to just invalidate a speific indexpath or an array of them, and you should so long as you know what is being invalidated.
-    [self.sizeManager invalidateCellHeightCache];
+    [self.sizeManager invalidateCellSizeCache];
     
     [self.tableView reloadData];
 }

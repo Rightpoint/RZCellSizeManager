@@ -27,26 +27,26 @@
 {
     switch (type) {
         case NSFetchedResultsChangeDelete:
-            [self invalidateCellHeightsAtIndexPaths:[self indexPathsInSectionAboveIndexPath:indexPath forController:controller]];
+            [self invalidateCellSizesAtIndexPaths:[self indexPathsInSectionAboveIndexPath:indexPath forController:controller]];
             break;
         case NSFetchedResultsChangeInsert:
-            [self invalidateCellHeightsAtIndexPaths:[self indexPathsInSectionAboveIndexPath:newIndexPath forController:controller]];
+            [self invalidateCellSizesAtIndexPaths:[self indexPathsInSectionAboveIndexPath:newIndexPath forController:controller]];
             break;
         case NSFetchedResultsChangeMove:
         {
             if (indexPath.section == newIndexPath.section)
             {
-                [self invalidateCellHeightsAtIndexPaths:[self indexPathsInSectionAboveIndexPath:((indexPath.row > newIndexPath.row) ? newIndexPath : indexPath) forController:controller]];
+                [self invalidateCellSizesAtIndexPaths:[self indexPathsInSectionAboveIndexPath:((indexPath.row > newIndexPath.row) ? newIndexPath : indexPath) forController:controller]];
             }
             else
             {
                 // We are moving sections.  For now just invalidate everything
-                [self invalidateCellHeightCache];
+                [self invalidateCellSizeCache];
             }
         }
             break;
         case NSFetchedResultsChangeUpdate:
-            [self invalidateCellHeightAtIndexPath:indexPath];
+            [self invalidateCellSizeAtIndexPath:indexPath];
             break;
             
         default:
