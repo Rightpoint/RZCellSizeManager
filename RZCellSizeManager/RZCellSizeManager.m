@@ -12,6 +12,7 @@
 #define kRZCellSizeManagerObjectClassKey        @"RZCellSizeManagerObjectClassKey"
 #define kRZCellSizeManagerConfigurationBlockKey @"RZCellSizeManagerConfigurationBlockKey"
 
+#define kRZCellSizeManagerDefaultCellHeightPadding  1.0f
 /**
  * UICollectionViewCell (AutoLayout)
  *
@@ -244,6 +245,7 @@
 {
     self.cellConfigurations = [NSMutableDictionary dictionary];
     self.cellSizeCache = [[NSCache alloc] init];
+    self.cellHeightPadding = kRZCellSizeManagerDefaultCellHeightPadding;
 }
 
 #pragma mark - Registration methods
@@ -402,11 +404,11 @@
         {
             configuration.configurationBlock(configuration.cell, object);
             UIView* contentView = [configuration.cell contentView];
-            height = @([contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height);
+            height = @([contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + self.cellHeightPadding);
         }
         else if (configuration.heightBlock)
         {
-            height = @(configuration.heightBlock(configuration.cell, object));
+            height = @(configuration.heightBlock(configuration.cell, object) + self.cellHeightPadding);
         }
         
     }

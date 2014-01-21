@@ -82,6 +82,10 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
 - (void)invalidateCellSizeAtIndexPath:(NSIndexPath *)indexPath;
 - (void)invalidateCellSizesAtIndexPaths:(NSArray *)indexPaths;
 
+// This defaults to 1 px.  This is because a UITableViewCell uses a seperator as part of its height so it will cut off the content.
+// You should set this to 0 if you don't have cell dividers, or set it to whatever you divider is set too.
+@property (nonatomic, assign) CGFloat cellHeightPadding;
+
 // Returns the height for the cell given an object and an index.
 - (CGFloat)cellHeightForObject:(id)object indexPath:(NSIndexPath *)indexPath;
 - (CGFloat)cellHeightForObject:(id)object indexPath:(NSIndexPath *)indexPath cellReuseIdentifier:(NSString *)reuseIdentifier;
