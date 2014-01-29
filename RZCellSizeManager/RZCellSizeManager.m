@@ -37,12 +37,19 @@
         for(NSLayoutConstraint *cellConstraint in self.constraints){
             [self removeConstraint:cellConstraint];
             id firstItem = cellConstraint.firstItem == self ? self.contentView : cellConstraint.firstItem;
-            id seccondItem = cellConstraint.secondItem == self ? self.contentView : cellConstraint.secondItem;
+            id secondItem = cellConstraint.secondItem == self ? self.contentView : cellConstraint.secondItem;
+            //There is a case where we can grab the iOS7 UITableViewCellScrollView which will break, this check is for that.
+            if (([[firstItem superview] isEqual:self] && ![firstItem isEqual:self.contentView]) ||
+                ([[secondItem superview] isEqual:self] && ![secondItem isEqual:self.contentView]))
+            {
+                continue;
+            }
+            
             NSLayoutConstraint* contentViewConstraint =
             [NSLayoutConstraint constraintWithItem:firstItem
                                          attribute:cellConstraint.firstAttribute
                                          relatedBy:cellConstraint.relation
-                                            toItem:seccondItem
+                                            toItem:secondItem
                                          attribute:cellConstraint.secondAttribute
                                         multiplier:cellConstraint.multiplier
                                           constant:cellConstraint.constant];
