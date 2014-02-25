@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "RZCellSizeManager"
-  s.version      = "0.0.1"
+  s.version      = "1.0.0"
   s.summary      = "Dynamic size computation and cacheing for cells."
 
   s.description  = <<-DESC
@@ -60,7 +60,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "git@github.com:Raizlabs/RZCellSizeManager.git", :tag => "0.0.1" }
+  s.source       = { :git => "git@github.com:Raizlabs/RZCellSizeManager.git", :tag => "1.0.0" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
