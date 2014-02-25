@@ -3,7 +3,7 @@ RZCellSizeManager
 
 Dynamic size computation and cacheing for cells.
 
-RZCellSizeManager is an object used to cache and get cell heights for UICollectionView cells and UITableView cells.  It works especially well when using AutoLayout but can be used anytime you want to cache cell sizes.
+RZCellSizeManager is an object used to cache and get cell heights for `UICollectionView` cells and `UITableView` cells.  It works especially well when using AutoLayout but can be used anytime you want to cache cell sizes.
 
 
 Getting Started
@@ -15,17 +15,37 @@ Copy the RZCellSizeManager folder into your project.  All you need is the ```RZC
 Implementation
 --------------
 
-Using RZCellSizeManager is easy.  All you have to do is create an instance of the size manager using one of the initializers and set up a configuration block.  A configuration block is what will happen to the cell to adjust its height.
+There are two different approaches to using `RZCellSizeManager`.  The first is to use a ReuseIdentifier to register your cell class.  This is a familiar approach since it is how we interact normally with a UITableView or a UICollectionView
 
 ```
 @property (strong, nonatomic) RZCellSizeManager* sizeManager;
 ```
 
 ```
-self.sizeManager = [[RZCellSizeManager alloc] initWithCellClassName:@"RZTableViewCell" configurationBlock:^(RZTableViewCell* cell, id object) {
-    [cell setCellData:object];
-}];
+self.sizeManager = [[RZCellSizeManager alloc] initWithCellClassName:@"TableViewCell" cellReuseIdentifier:[TableViewCell reuseIdentifier] configurationBlock:^(TableViewCell* cell, id object) {
+        [cell setCellData:object];
+    }];
 ```
+
+If you pass in a reuseIdentifier of `nil` it will work fine so long as you only have one cell type.
+    
+The second approach is to register with an object class.
+
+	self.sizeManager = [[RZCellSizeManager alloc] initWithCellClassName:@"TableViewCell" objectClass:[CellData class] configurationBlock:^(TableViewCell* cell, id object) {
+        [cell setCellData:object];
+    }];
+
+Either method supports the ability to register additional cell classes, either for additional ReuseIdentifiers or object classes.
+	
+	- (void)registerCellClassName:(NSString *)cellClass
+               forObjectClass:(Class)objectClass
+           configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
+           
+	- (void)registerCellClassName:(NSString *)cellClass
+           forReuseIdentifier:(NSString *)reuseIdentifier
+       withConfigurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
+    
+Mixing the two different methods will result in unsupported behavior.
 
 In this case we are setting an object on the cell which will set two different labels.  Both of these labels are configured with autolayout so they will adjust their size depending on the content of them.  Here is an example of the  ```setCellData:``` method
 
@@ -40,17 +60,27 @@ In this case we are setting an object on the cell which will set two different l
 
 Then just implement the UITableViewDelegate Method and ask the sizeManager for the size at your cells index path.
 
-```
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Retrieve our object to give to our size manager.
-    id object = [self.dataArray objectAtIndex:indexPath.row];
-    
-    // Since we are using a tableView we are using the cellHeightForObject:indexPath: method.
-    //  It uses the indexPath as the key for cacheing so it is important to pass in the correct one.
-    return [self.sizeManager cellHeightForObject:object indexPath:indexPath];
-}
-```
+For the ReuseIdentifier approach we just pass in an additional parameter as the ReuseIdentifier for cell that we want to use to get our height based off the indexPath.
+
+	- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+	{
+ 	   	// Retrieve our object to give to our size manager.
+ 	   	id object = [self.dataArray objectAtIndex:indexPath.row];
+
+       	return [self.sizeManager cellHeightForObject:object indexPath:indexPath cellReuseIdentifier:[TableViewCell reuseIdentifier]];	
+    }
+        
+For the object class approach, RZCellSizeManager will figure out the correct cell to use based on the class of the provided object so this call is even simpiler.
+
+
+	- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+	{
+ 	   // Retrieve our object to give to our size manager.
+ 	   id object = [self.dataArray objectAtIndex:indexPath.row];
+
+		return [self.sizeManager cellHeightForObject:object indexPath:indexPath];
+	}
+
 And your done.  All of your cell's sizes will be cached so that any future calls will be quick.
 
 
@@ -58,8 +88,13 @@ Invalidating Sizes
 ------------------
 
 if you are using RZCellSizeManager and you data changes you will need to invalidate it's cache so that it can compute the new heights.  This can be done by giving it a specific index path, or you can just invalidate the entire cache.
+
 ```
-[self.sizeManager invalidateCellHeightCache];
+	- (void)invalidateCellHeightCache;
+	- (void)invalidateCellHeightAtIndexPath:(NSIndexPath *)indexPath;
+	- (void)invalidateCellHeightsAtIndexPaths:(NSArray *)indexPaths;
+
+
 ```
 
 Next Steps
