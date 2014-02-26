@@ -9,6 +9,17 @@ RZCellSizeManager is an object used to cache and get cell heights for `UICollect
 Getting Started
 ===============
 
+Use Cocoapods
+------------------
+Add the pod to your Podfile:
+
+```
+pod 'RZCellSizeManager', '~>1.0.0'
+```
+
+
+Manually
+---------
 
 Copy the RZCellSizeManager folder into your project.  All you need is the ```RZCellSizeManager.h``` and ```RZCellSizeManager.m```
 
