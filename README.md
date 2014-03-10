@@ -113,3 +113,4 @@ Next Steps
 
 Check out the demo project for a simple example of how to use the ```RZCellSizeManager``` and feel free to add issue's and pull requests if you have good ideas for future enhancements.
 
+Also there is a link to a blog post about `RZCellSizeManager` here: http://www.raizlabs.com/dev/2014/02/leveraging-auto-layout-for-dynamic-cell-heights
