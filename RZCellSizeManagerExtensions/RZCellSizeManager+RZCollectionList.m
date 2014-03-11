@@ -65,11 +65,11 @@ static char s_RZAutoLayoutHeightManagerToken;
 {
     if (self.shouldFlushCache)
     {
-        [self.heightManager invalidateCellHeightCache];
+        [self.heightManager invalidateCellSizeCache];
     }
     else
     {
-        [self.heightManager invalidateCellHeightsAtIndexPaths:[self.reloadableIndexPaths allObjects]];
+        [self.heightManager invalidateCellSizesAtIndexPaths:[self.reloadableIndexPaths allObjects]];
     }
 }
 
