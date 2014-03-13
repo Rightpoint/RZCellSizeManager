@@ -1,5 +1,5 @@
 //
-//  RZAutolayoutLabel.h
+//  RZAutoLayoutLabel.h
 //
 //  Created by alex.rouse on 3/13/14.
 
@@ -27,8 +27,15 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
+
+/**
+ *  RZAutolayoutLabel
+ *
+ *  This class is designed to keep the PreferredMaxLayoutWidth of a UILabel equal to its bounds width.
+ **/
+
 #import <UIKit/UIKit.h>
 
-@interface RZAutolayoutLabel : UILabel
+@interface RZAutoLayoutLabel : UILabel
 
 @end

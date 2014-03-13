@@ -29,6 +29,12 @@
 #import "RZCellSizeManager.h"
 #import "RZCollectionList.h"
 
+/**
+ * RZCellSizeManager (RZCollectionList)
+ *
+ * Provides AutoInvalidation for a RZCellSizeManager's height cache based off of the Collection list updates
+ **/
+
 @interface RZCellSizeManager (RZCollectionList)
 
 - (void)rz_autoInvalidateWithCollectionList:(id<RZCollectionList>)collectionList;

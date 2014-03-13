@@ -1,5 +1,5 @@
 //
-//  RZAutolayoutLabel.m
+//  RZAutoLayoutLabel.m
 //
 //  Created by alex.rouse on 3/13/14.
 
@@ -25,9 +25,9 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-#import "RZAutolayoutLabel.h"
+#import "RZAutoLayoutLabel.h"
 
-@implementation RZAutolayoutLabel
+@implementation RZAutoLayoutLabel
 
 - (void)setBounds:(CGRect)bounds
 {
