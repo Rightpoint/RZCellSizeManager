@@ -1,7 +1,7 @@
 //
-//  RZCellSizeManager+RZCollectionList.h
+//  RZAutolayoutLabel.m
 //
-//  Created by Alex Rouse on 12/12/13.
+//  Created by alex.rouse on 3/13/14.
 
 // Copyright 2014 Raizlabs and other contributors
 // http://raizlabs.com/
@@ -25,12 +25,18 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
+#import "RZAutolayoutLabel.h"
 
-#import "RZCellSizeManager.h"
-#import "RZCollectionList.h"
+@implementation RZAutolayoutLabel
 
-@interface RZCellSizeManager (RZCollectionList)
-
-- (void)rz_autoInvalidateWithCollectionList:(id<RZCollectionList>)collectionList;
-
+- (void)setBounds:(CGRect)bounds
+{
+    [super setBounds:bounds];
+    
+    CGFloat width = CGRectGetWidth(bounds);
+    if ( self.preferredMaxLayoutWidth != width )
+    {
+        self.preferredMaxLayoutWidth = width;
+    }
+}
 @end

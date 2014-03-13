@@ -1,7 +1,8 @@
 //
-//  RZCellSizeManager+RZCollectionList.h
+//  RZAutolayoutLabel.h
 //
-//  Created by Alex Rouse on 12/12/13.
+//  Created by alex.rouse on 3/13/14.
+
 
 // Copyright 2014 Raizlabs and other contributors
 // http://raizlabs.com/
@@ -26,11 +27,8 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#import "RZCellSizeManager.h"
-#import "RZCollectionList.h"
+#import <UIKit/UIKit.h>
 
-@interface RZCellSizeManager (RZCollectionList)
-
-- (void)rz_autoInvalidateWithCollectionList:(id<RZCollectionList>)collectionList;
+@interface RZAutolayoutLabel : UILabel
 
 @end
