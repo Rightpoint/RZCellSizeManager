@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "RZCellSizeManager"
-  s.version      = "1.0.1"
+  s.version      = "1.0.0"
   s.summary      = "Dynamic size computation and cacheing for cells."
 
   s.description  = <<-DESC
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, '7.0'
 
-  s.source       = { :git => "https://github.com/Raizlabs/RZCellSizeManager.git", :tag => "1.0.0" }
+  s.source       = { :git => "https://github.com/Raizlabs/RZCellSizeManager.git", :tag => "1.0.1" }
 
   s.source_files  = 'RZCellSizeManager/*.{h,m}'
 end
