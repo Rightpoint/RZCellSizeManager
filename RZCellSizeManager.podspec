@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "RZCellSizeManager"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "Dynamic size computation and cacheing for cells."
 
   s.description  = <<-DESC
