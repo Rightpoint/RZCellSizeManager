@@ -1,10 +1,31 @@
 //
 //  RZCellSizeManager.m
-//  Raizlabs
 //
 //  Created by Alex Rouse on 12/11/13.
-//  Copyright (c) 2013 Raizlabs. All rights reserved.
+
+// Copyright 2014 Raizlabs and other contributors
+// http://raizlabs.com/
 //
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to
+// permit persons to whom the Software is furnished to do so, subject to
+// the following conditions:
+//
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+//
+
 
 #import "RZCellSizeManager.h"
 
@@ -148,6 +169,7 @@
 @property (nonatomic, strong) NSString* cellNibName;
 @property (nonatomic, strong) NSCache* cellSizeCache;
 
+
 @property (nonatomic, assign) BOOL isUsingObjectTypesForLookup;
 
 @property (nonatomic, copy) RZCellSizeManagerConfigBlock configurationBlock;
@@ -162,6 +184,17 @@
 /**
  * Initializers for use with the configurationBlock method
  **/
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        [self commonInit];
+    }
+    return self;
+}
+
 - (instancetype)initWithCellClassName:(NSString *)cellClass
                           objectClass:(Class)objectClass
                    configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock
@@ -253,6 +286,23 @@
     self.cellConfigurations = [NSMutableDictionary dictionary];
     self.cellSizeCache = [[NSCache alloc] init];
     self.cellHeightPadding = kRZCellSizeManagerDefaultCellHeightPadding;
+}
+
+#pragma mark - Custom Setters
+
+- (void)setOverideWidth:(CGFloat)overideWidth
+{
+    if (overideWidth != _overideWidth)
+    {
+        _overideWidth = overideWidth;
+        [self.cellConfigurations enumerateKeysAndObjectsUsingBlock:^(id key, RZCellSizeManagerCellConfiguration *obj, BOOL *stop) {
+            id cell = obj.cell;
+            [cell setFrameWidth:overideWidth];
+            [cell setNeedsLayout];
+            [cell layoutIfNeeded];
+        }];
+        [self invalidateCellSizeCache];
+    }
 }
 
 #pragma mark - Registration methods
@@ -353,6 +403,12 @@
         UINib* nib = [UINib nibWithNibName:className bundle:nil];
         cell = [[nib instantiateWithOwner:nil options:nil] objectAtIndex:0];
         [cell moveConstraintsToContentView];
+        if (self.overideWidth != 0)
+        {
+            [cell setFrameWidth:self.overideWidth];
+            [cell setNeedsLayout];
+            [cell layoutIfNeeded];
+        }
     }
     
     if (!cell)
@@ -410,6 +466,7 @@
         if (configuration.configurationBlock)
         {
             configuration.configurationBlock(configuration.cell, object);
+            [configuration.cell layoutIfNeeded];
             UIView* contentView = [configuration.cell contentView];
             height = @([contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + self.cellHeightPadding);
         }

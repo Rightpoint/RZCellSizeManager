@@ -1,7 +1,8 @@
 //
-//  RZCellSizeManager+RZCollectionList.h
+//  RZAutoLayoutLabel.h
 //
-//  Created by Alex Rouse on 12/12/13.
+//  Created by alex.rouse on 3/13/14.
+
 
 // Copyright 2014 Raizlabs and other contributors
 // http://raizlabs.com/
@@ -26,17 +27,15 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#import "RZCellSizeManager.h"
-#import "RZCollectionList.h"
 
 /**
- * RZCellSizeManager (RZCollectionList)
+ *  RZAutolayoutLabel
  *
- * Provides AutoInvalidation for a RZCellSizeManager's height cache based off of the Collection list updates
+ *  This class is designed to keep the PreferredMaxLayoutWidth of a UILabel equal to its bounds width.
  **/
 
-@interface RZCellSizeManager (RZCollectionList)
+#import <UIKit/UIKit.h>
 
-- (void)rz_autoInvalidateWithCollectionList:(id<RZCollectionList>)collectionList;
+@interface RZAutoLayoutLabel : UILabel
 
 @end
