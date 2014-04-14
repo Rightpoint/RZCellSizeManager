@@ -465,6 +465,7 @@
     {
         if (configuration.configurationBlock)
         {
+            [configuration.cell prepareForReuse];
             configuration.configurationBlock(configuration.cell, object);
             [configuration.cell layoutIfNeeded];
             UIView* contentView = [configuration.cell contentView];
