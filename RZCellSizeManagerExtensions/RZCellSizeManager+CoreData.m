@@ -14,7 +14,7 @@
 {
     NSMutableArray* indexPaths = [NSMutableArray array];
     NSInteger numberOfObjectes = [[controller.sections objectAtIndex:indexPath.section] numberOfObjects];
-    for (int i = indexPath.row; i <numberOfObjectes; i++)
+    for (NSInteger i = indexPath.row; i <numberOfObjectes; i++)
     {
         [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:indexPath.section]];
     }

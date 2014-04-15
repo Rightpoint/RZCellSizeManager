@@ -297,7 +297,9 @@
         _overideWidth = overideWidth;
         [self.cellConfigurations enumerateKeysAndObjectsUsingBlock:^(id key, RZCellSizeManagerCellConfiguration *obj, BOOL *stop) {
             id cell = obj.cell;
-            [cell setFrameWidth:overideWidth];
+            CGRect overideFrame = [cell frame];
+            overideFrame.size.width = overideWidth;
+            [cell setFrame:overideFrame];
             [cell setNeedsLayout];
             [cell layoutIfNeeded];
         }];
@@ -405,7 +407,9 @@
         [cell moveConstraintsToContentView];
         if (self.overideWidth != 0)
         {
-            [cell setFrameWidth:self.overideWidth];
+            CGRect overideFrame = [cell frame];
+            overideFrame.size.width = self.overideWidth;
+            [cell setFrame:overideFrame];
             [cell setNeedsLayout];
             [cell layoutIfNeeded];
         }
