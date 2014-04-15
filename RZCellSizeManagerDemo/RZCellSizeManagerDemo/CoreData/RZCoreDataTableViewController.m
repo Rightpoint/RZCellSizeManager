@@ -73,7 +73,8 @@
     // NOTE: if you are doing things that don't pertain to layout in the setCellData: method it may be best to create a different
     //  method for computing the height or add an optional parameter setCellData:forHeight: to not do additional work,  This
     //  expecially applies if you are loading images or anything of that manor.
-    self.sizeManager = [[RZCellSizeManager alloc] initWithCellClassName:@"RZTableViewCell" cellReuseIdentifier:nil configurationBlock:^(RZTableViewCell* cell, id object) {
+    self.sizeManager = [[RZCellSizeManager alloc] init];
+    [self.sizeManager registerCellClassName:@"RZTableViewCell" forReuseIdentifier:nil withConfigurationBlock:^(RZTableViewCell* cell, id object) {
         [cell setCellData:object];
     }];
     

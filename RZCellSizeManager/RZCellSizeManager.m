@@ -185,140 +185,18 @@
 #pragma mark - Initializers
 
 /**
- * Initializers for use with the configurationBlock method
- **/
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self)
-    {
-        [self commonInit];
-    }
-    return self;
-}
-
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                          objectClass:(Class)objectClass
-                   configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock
-{
-    self = [super init];
-    if (self)
-    {
-        [self commonInit];
-        [self registerCellClassName:cellClass forObjectClass:objectClass configurationBlock:configurationBlock];
-    }
-    return self;
-}
-
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                  cellReuseIdentifier:(NSString *)reuseIdentifier
-                   configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock
-{
-    self = [super init];
-    if (self)
-    {
-        [self commonInit];
-        [self registerCellClassName:cellClass forReuseIdentifier:reuseIdentifier withConfigurationBlock:configurationBlock];
-    }
-    return self;
-}
-
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                          objectClass:(Class)objectClass
-                              nibName:(NSString *)nibName
-                   configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock
-{
-    self = [super init];
-    if (self)
-    {
-        [self commonInit];
-        self.customNibName = nibName;
-        [self registerCellClassName:cellClass forObjectClass:objectClass configurationBlock:configurationBlock];
-    }
-    return self;
-}
-
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                  cellReuseIdentifier:(NSString *)reuseIdentifier
-                              nibName:(NSString *)nibName
-                   configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock
-{
-    self = [super init];
-    if (self)
-    {
-        [self commonInit];
-        self.customNibName = nibName;
-        [self registerCellClassName:cellClass forReuseIdentifier:reuseIdentifier withConfigurationBlock:configurationBlock];
-    }
-    return self;
-}
-
-/**
- * Initializers for use with the HeightBlock method
- **/
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                          objectClass:(Class)objectClass
-                          heightBlock:(RZCellSizeManagerHeightBlock)heightBlock
-{
-    self = [super init];
-    if (self)
-    {
-        [self commonInit];
-        [self registerCellClassName:cellClass forObjectClass:objectClass withHeightBlock:heightBlock];
-    }
-    return self;
-}
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                  cellReuseIdentifier:(NSString *)reuseIdentifier
-                          heightBlock:(RZCellSizeManagerHeightBlock)heightBlock
-{
-    self = [super init];
-    if (self)
-    {
-        [self commonInit];
-        [self registerCellClassName:cellClass forReuseIdentifier:reuseIdentifier withHeightBlock:heightBlock];
-    }
-    return self;
-}
-
-/**
- * Initializers for use with the SizeBlock Method
- **/
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                          objectClass:(Class)objectClass
-                            sizeBlock:(RZCellSizeManagerSizeBlock)sizeBlock
-{
-    self = [super init];
-    if (self)
-    {
-        [self commonInit];
-        [self registerCellClassName:cellClass forObjectClass:objectClass withSizeBlock:sizeBlock];
-    }
-    return self;
-}
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                  cellReuseIdentifier:(NSString *)reuseIdentifier
-                            sizeBlock:(RZCellSizeManagerSizeBlock)sizeBlock
-{
-    self = [super init];
-    if (self)
-    {
-        [self commonInit];
-        [self registerCellClassName:cellClass forReuseIdentifier:reuseIdentifier withSizeBlock:sizeBlock];
-    }
-    return self;
-}
-
-/**
  * A common init function
  * Initializes the cellConfigurations dictionary and the cellSizeCache.
  **/
-- (void)commonInit
+- (instancetype)init
 {
-    self.cellConfigurations = [NSMutableDictionary dictionary];
-    self.cellSizeCache = [[NSCache alloc] init];
-    self.cellHeightPadding = kRZCellSizeManagerDefaultCellHeightPadding;
+    self = [super init];
+    if ( self ) {
+        _cellConfigurations = [NSMutableDictionary dictionary];
+        _cellSizeCache = [[NSCache alloc] init];
+        _cellHeightPadding = kRZCellSizeManagerDefaultCellHeightPadding;
+    }
+    return self;
 }
 
 #pragma mark - Custom Setters
@@ -329,8 +207,10 @@
     {
         _overideWidth = overideWidth;
         [self.cellConfigurations enumerateKeysAndObjectsUsingBlock:^(id key, RZCellSizeManagerCellConfiguration *obj, BOOL *stop) {
-            id cell = obj.cell;
-            [cell setFrameWidth:overideWidth];
+            UIView *cell = obj.cell;
+            CGRect frame = [cell frame];
+            frame.size.width = overideWidth;
+            [cell setFrame:frame];
             [cell setNeedsLayout];
             [cell layoutIfNeeded];
         }];
@@ -437,17 +317,20 @@
         UINib* nib = [UINib nibWithNibName:nibName bundle:nil];
         cell = [[nib instantiateWithOwner:nil options:nil] objectAtIndex:0];
         [cell moveConstraintsToContentView];
-        if (self.overideWidth != 0)
-        {
-            [cell setFrameWidth:self.overideWidth];
-            [cell setNeedsLayout];
-            [cell layoutIfNeeded];
-        }
     }
     
     if (!cell)
     {
         cell = [[NSClassFromString(className) alloc] init];
+    }
+    
+    if (self.overideWidth != 0)
+    {
+        CGRect frame = [cell frame];
+        frame.size.width = self.overideWidth;
+        [cell setFrame:frame];
+        [cell setNeedsLayout];
+        [cell layoutIfNeeded];
     }
     
     NSAssert(cell != nil, @"Cell not created successfully.  Make sure there is a cell with your class name in your project:%@",className);

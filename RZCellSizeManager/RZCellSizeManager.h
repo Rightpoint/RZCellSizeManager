@@ -39,54 +39,14 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
  *  calls for the size of a cell based on an index path.
  *  The cached heights can be invalidated at any time by indexpath or the entire cache.
  **/
-
 @interface RZCellSizeManager : NSObject
-
-// Assumes that the cell comes from a nib and has the same name as the class
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                          objectClass:(Class)objectClass
-                   configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
-
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                  cellReuseIdentifier:(NSString *)reuseIdentifier
-                   configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
-
-// Provides a parameter to specify a particular nib name when a class controls multiple nibs
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                          objectClass:(Class)objectClass
-                              nibName:(NSString *)nibName
-                   configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
-
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                  cellReuseIdentifier:(NSString *)reuseIdentifier
-                              nibName:(NSString *)nibName
-                   configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
-
-
-// This version still caches heights, but instead of autolayout uses the response from the provided block instead.
-// Useful for when height is only dependent on one particular view and performance may be an issue.
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                          objectClass:(Class)objectClass
-                          heightBlock:(RZCellSizeManagerHeightBlock)heightBlock;
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                  cellReuseIdentifier:(NSString *)reuseIdentifier
-                          heightBlock:(RZCellSizeManagerHeightBlock)heightBlock;
-
-
-// This version still caches sizes, but instead of autolayout uses the response from the provided block instead.
-// Useful for when height is only dependent on one particular view and performance may be an issue.
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                          objectClass:(Class)objectClass
-                            sizeBlock:(RZCellSizeManagerSizeBlock)sizeBlock;
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                  cellReuseIdentifier:(NSString *)reuseIdentifier
-                            sizeBlock:(RZCellSizeManagerSizeBlock)sizeBlock;
 
 
 // Registration For additional cells using a configurationBlock
 - (void)registerCellClassName:(NSString *)cellClass
                forObjectClass:(Class)objectClass
            configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
+
 - (void)registerCellClassName:(NSString *)cellClass
            forReuseIdentifier:(NSString *)reuseIdentifier
        withConfigurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
@@ -95,6 +55,7 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
 - (void)registerCellClassName:(NSString *)cellClass
                forObjectClass:(Class)objectClass
               withHeightBlock:(RZCellSizeManagerHeightBlock)heightBlock;
+
 - (void)registerCellClassName:(NSString *)cellClass
            forReuseIdentifier:(NSString *)reuseIdentifier
               withHeightBlock:(RZCellSizeManagerHeightBlock)heightBlock;
@@ -103,6 +64,7 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
 - (void)registerCellClassName:(NSString *)cellClass
                forObjectClass:(Class)objectClass
                 withSizeBlock:(RZCellSizeManagerSizeBlock)sizeBlock;
+
 - (void)registerCellClassName:(NSString *)cellClass
            forReuseIdentifier:(NSString *)reuseIdentifier
                 withSizeBlock:(RZCellSizeManagerSizeBlock)sizeBlock;

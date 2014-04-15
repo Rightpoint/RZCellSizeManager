@@ -71,9 +71,12 @@
     //  method for computing the height or add an optional parameter setCellData:forHeight: to not do additional work,  This
     //  expecially applies if you are loading images or anything of that manor.
     
-    self.sizeManager = [[RZCellSizeManager alloc] initWithCellClassName:@"RZTableViewCell" objectClass:[RZCellData class] configurationBlock:^(id cell, id object) {
+    self.sizeManager = [[RZCellSizeManager alloc] init];
+                        
+    [self.sizeManager registerCellClassName:@"RZTableViewCell" forObjectClass:[RZCellData class] configurationBlock:^(id cell, id object) {
         [cell setCellData:object];
     }];
+    
     [self.sizeManager registerCellClassName:@"RZSecondTableViewCell" forObjectClass:[RZOtherCellData class] configurationBlock:^(RZSecondTableViewCell* cell, RZOtherCellData* object) {
         [cell setOtherCellData:object];
     }];
