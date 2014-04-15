@@ -54,7 +54,7 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
  *
  *  @param cellClass          Name of the cell class. Must not be nil.
  *  @param nibNameOrNil       Name of the nib file representing the cell, or nil to use the default name (or if there is no nib)
- *  @param objectClass        Class of the model object this cell represents. Must not be Nil.
+ *  @param objectClass        Class of the model object this cell represents, or Nil to use this block for all cells.
  *  @param configurationBlock Block which is passed a pointer to the cell as well as a pointer to the model object, if applicable.
  *                            The block should configure the cell's subviews from the model object. Must not be nil.
  *
@@ -95,7 +95,7 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
  *
  *  @param cellClass          Name of the cell class. Must not be nil.
  *  @param nibNameOrNil       Name of the nib file representing the cell, or nil to use the default name (or if there is no nib)
- *  @param objectClass        Class of the model object this cell represents. Must not be Nil.
+ *  @param objectClass        Class of the model object this cell represents, or Nil to use this block for all cells.
  *  @param heightBlock        Block which is passed a pointer to the cell as well as the model object for the cell, if applicable.
  *                            This block should compute the height of the cell and return it. Must not be nil.
  */
@@ -131,7 +131,7 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
  *
  *  @param cellClass          Name of the cell class. Must not be nil.
  *  @param nibNameOrNil       Name of the nib file representing the cell, or nil to use the default name (or if there is no nib)
- *  @param objectClass        Class of the model object this cell represents. Must not be Nil.
+ *  @param objectClass        Class of the model object this cell represents, or Nil to use this block for all cells.
  *  @param sizeBlock          Block which is passed a pointer to the cell as well as the model object for the cell, if applicable.
  *                            This block should compute the size of the cell and return it. Must not be nil.
  */
