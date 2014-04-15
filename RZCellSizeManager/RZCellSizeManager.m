@@ -163,6 +163,7 @@
  **/
 
 @interface RZCellSizeManager ()
+
 @property (nonatomic, strong) NSMutableDictionary* cellConfigurations;
 @property (nonatomic, strong) id offScreenCell;
 @property (nonatomic, strong) NSString* cellClassName;
@@ -175,8 +176,6 @@
 @property (nonatomic, copy) RZCellSizeManagerConfigBlock configurationBlock;
 @property (nonatomic, copy) RZCellSizeManagerHeightBlock heightBlock;
 @property (nonatomic, copy) RZCellSizeManagerSizeBlock sizeBlock;
-
-@property (nonatomic, strong) NSString *customNibName;
 
 @end
 
@@ -220,11 +219,27 @@
 
 #pragma mark - Registration methods
 
+
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
+               forObjectClass:(Class)objectClass
+       withConfigurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock
+{
+    id cell = [self configureOffScreenCellWithCellClassName:cellClass nibName:nibNameOrNil];
+    
+    RZCellSizeManagerCellConfiguration* configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell
+                                                                                                            cellClass:cellClass
+                                                                                                          objectClass:objectClass
+                                                                                                   configurationBlock:configurationBlock];
+    [self.cellConfigurations setObject:configuration forKey:cellClass];
+}
+
+- (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
            forReuseIdentifier:(NSString *)reuseIdentifier
        withConfigurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock
 {
-    id cell = [self configureOffScreenCellWithCellClassName:cellClass];
+    id cell = [self configureOffScreenCellWithCellClassName:cellClass nibName:nibNameOrNil];
     
     RZCellSizeManagerCellConfiguration* configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell
                                                                                                             cellClass:cellClass
@@ -234,24 +249,13 @@
     [self.cellConfigurations setObject:configuration forKey:cellClass];
 }
 
-- (void)registerCellClassName:(NSString *)cellClass
-               forObjectClass:(Class)objectClass
-           configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock
-{
-    id cell = [self configureOffScreenCellWithCellClassName:cellClass];
-
-    RZCellSizeManagerCellConfiguration* configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell
-                                                                                                            cellClass:cellClass
-                                                                                                          objectClass:objectClass
-                                                                                                   configurationBlock:configurationBlock];
-    [self.cellConfigurations setObject:configuration forKey:cellClass];
-}
 
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
                forObjectClass:(Class)objectClass
               withHeightBlock:(RZCellSizeManagerHeightBlock)heightBlock
 {
-    id cell = [self configureOffScreenCellWithCellClassName:cellClass];
+    id cell = [self configureOffScreenCellWithCellClassName:cellClass nibName:nibNameOrNil];
     RZCellSizeManagerCellConfiguration* configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell
                                                                                                             cellClass:cellClass
                                                                                                           objectClass:objectClass
@@ -260,10 +264,11 @@
 }
 
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
            forReuseIdentifier:(NSString *)reuseIdentifier
               withHeightBlock:(RZCellSizeManagerHeightBlock)heightBlock
 {
-    id cell = [self configureOffScreenCellWithCellClassName:cellClass];
+    id cell = [self configureOffScreenCellWithCellClassName:cellClass nibName:nibNameOrNil];
     RZCellSizeManagerCellConfiguration* configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell
                                                                                                             cellClass:cellClass
                                                                                                           objectClass:nil
@@ -273,10 +278,11 @@
 }
 
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
                forObjectClass:(Class)objectClass
                 withSizeBlock:(RZCellSizeManagerSizeBlock)sizeBlock
 {
-    id cell = [self configureOffScreenCellWithCellClassName:cellClass];
+    id cell = [self configureOffScreenCellWithCellClassName:cellClass nibName:nibNameOrNil];
     RZCellSizeManagerCellConfiguration* configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell
                                                                                                             cellClass:cellClass
                                                                                                           objectClass:objectClass
@@ -285,10 +291,11 @@
 }
 
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
            forReuseIdentifier:(NSString *)reuseIdentifier
                 withSizeBlock:(RZCellSizeManagerSizeBlock)sizeBlock
 {
-    id cell = [self configureOffScreenCellWithCellClassName:cellClass];
+    id cell = [self configureOffScreenCellWithCellClassName:cellClass nibName:nibNameOrNil];
     RZCellSizeManagerCellConfiguration* configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell
                                                                                                             cellClass:cellClass
                                                                                                           objectClass:nil
@@ -302,7 +309,7 @@
  * The cell is initially created from a nib that shares the same name as the class passed in.
  *  It will then just allocate an instance using the default init.
  **/
-- (id)configureOffScreenCellWithCellClassName:(NSString *)className
+- (id)configureOffScreenCellWithCellClassName:(NSString *)className nibName:(NSString *)nibNameOrNil
 {
     if ([self.cellConfigurations objectForKey:className])
     {
@@ -313,7 +320,7 @@
     id cell = nil;
     if (className)
     {
-        NSString *nibName = self.customNibName != nil ? self.customNibName : className;
+        NSString *nibName = nibNameOrNil != nil ? nibNameOrNil : className;
         UINib* nib = [UINib nibWithNibName:nibName bundle:nil];
         cell = [[nib instantiateWithOwner:nil options:nil] objectAtIndex:0];
         [cell moveConstraintsToContentView];

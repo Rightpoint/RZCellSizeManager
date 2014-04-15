@@ -42,30 +42,61 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
 @interface RZCellSizeManager : NSObject
 
 
-// Registration For additional cells using a configurationBlock
+/**
+ *  Registers a cell for height computation by its class name, for a particular
+ *  data object class. The height will be computed using using a configuration block.
+ *
+ *  This flavor of registration is useful for registering a cell that represents an instance of 
+ *  a model object if the cell's height is determined by the data in the object.
+ *
+ *  @param cellClass          Name of the cell class
+ *  @param nibNameOrNil       Name of the nib file representing the cell, or nil to use the default name (or if there is no nib)
+ *  @param objectClass        Class of the model object this cell represents
+ *  @param configurationBlock Block which is passed a pointer to the cell as well as the model object.
+ *                            The block should configure the cell's subviews from the model object.
+ *
+ */
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
                forObjectClass:(Class)objectClass
-           configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
+       withConfigurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
 
+/**
+ *  Registers a cell for height computation by its class name, for a particular
+ *  reuse identifier. The height will be computed using a configuration block.
+ *
+ *  This flavor of registration is useful for registering a cell that represents an instance of
+ *  a model object if the cell's height is determined by the data in the object.
+ *
+ *  @param cellClass          Name of the cell class.
+ *  @param reuseIdentifier
+ *  @param nibNameOrNil       Name of the nib file representing the cell, or nil to use the default name (or if there is no nib)
+ *  @param configurationBlock <#configurationBlock description#>
+ */
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
            forReuseIdentifier:(NSString *)reuseIdentifier
        withConfigurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
 
 // Registration For additional cells using a heightBlock
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
                forObjectClass:(Class)objectClass
               withHeightBlock:(RZCellSizeManagerHeightBlock)heightBlock;
 
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
            forReuseIdentifier:(NSString *)reuseIdentifier
               withHeightBlock:(RZCellSizeManagerHeightBlock)heightBlock;
 
 // Registration for additional cells using the sizeBlock
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
                forObjectClass:(Class)objectClass
                 withSizeBlock:(RZCellSizeManagerSizeBlock)sizeBlock;
 
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
            forReuseIdentifier:(NSString *)reuseIdentifier
                 withSizeBlock:(RZCellSizeManagerSizeBlock)sizeBlock;
 
