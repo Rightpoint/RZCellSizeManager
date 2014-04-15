@@ -175,6 +175,9 @@
 @property (nonatomic, copy) RZCellSizeManagerConfigBlock configurationBlock;
 @property (nonatomic, copy) RZCellSizeManagerHeightBlock heightBlock;
 @property (nonatomic, copy) RZCellSizeManagerSizeBlock sizeBlock;
+
+@property (nonatomic, strong) NSString *customNibName;
+
 @end
 
 @implementation RZCellSizeManager
@@ -216,6 +219,36 @@
     if (self)
     {
         [self commonInit];
+        [self registerCellClassName:cellClass forReuseIdentifier:reuseIdentifier withConfigurationBlock:configurationBlock];
+    }
+    return self;
+}
+
+- (instancetype)initWithCellClassName:(NSString *)cellClass
+                          objectClass:(Class)objectClass
+                              nibName:(NSString *)nibName
+                   configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock
+{
+    self = [super init];
+    if (self)
+    {
+        [self commonInit];
+        self.customNibName = nibName;
+        [self registerCellClassName:cellClass forObjectClass:objectClass configurationBlock:configurationBlock];
+    }
+    return self;
+}
+
+- (instancetype)initWithCellClassName:(NSString *)cellClass
+                  cellReuseIdentifier:(NSString *)reuseIdentifier
+                              nibName:(NSString *)nibName
+                   configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock
+{
+    self = [super init];
+    if (self)
+    {
+        [self commonInit];
+        self.customNibName = nibName;
         [self registerCellClassName:cellClass forReuseIdentifier:reuseIdentifier withConfigurationBlock:configurationBlock];
     }
     return self;
@@ -400,7 +433,8 @@
     id cell = nil;
     if (className)
     {
-        UINib* nib = [UINib nibWithNibName:className bundle:nil];
+        NSString *nibName = self.customNibName != nil ? self.customNibName : className;
+        UINib* nib = [UINib nibWithNibName:nibName bundle:nil];
         cell = [[nib instantiateWithOwner:nil options:nil] objectAtIndex:0];
         [cell moveConstraintsToContentView];
         if (self.overideWidth != 0)

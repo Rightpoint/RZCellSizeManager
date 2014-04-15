@@ -51,6 +51,17 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
                   cellReuseIdentifier:(NSString *)reuseIdentifier
                    configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
 
+// Provides a parameter to specify a particular nib name when a class controls multiple nibs
+- (instancetype)initWithCellClassName:(NSString *)cellClass
+                          objectClass:(Class)objectClass
+                              nibName:(NSString *)nibName
+                   configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
+
+- (instancetype)initWithCellClassName:(NSString *)cellClass
+                  cellReuseIdentifier:(NSString *)reuseIdentifier
+                              nibName:(NSString *)nibName
+                   configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
+
 
 // This version still caches heights, but instead of autolayout uses the response from the provided block instead.
 // Useful for when height is only dependent on one particular view and performance may be an issue.
