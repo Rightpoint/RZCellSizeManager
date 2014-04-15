@@ -49,13 +49,17 @@
     
     // Initialize the size manager.  In this case we are using a configuration block to compute the height.
     // We could also use a height block to do it where we could set the data and return the height, this is good if
-    //  the cell is simpilar and you don't need to layout everything.
+    //  the cell is similar and you don't need to layout everything.
     // NOTE: if you are doing things that don't pertain to layout in the setCellData: method it may be best to create a different
     //  method for computing the height or add an optional parameter setCellData:forHeight: to not do additional work,  This
     //  expecially applies if you are loading images or anything of that manor.
-    self.sizeManager = [[RZCellSizeManager alloc] initWithCellClassName:@"RZTableViewCell" objectClass:nil configurationBlock:^(RZTableViewCell* cell, id object) {
-        [cell setCellData:object];
-    }];
+    self.sizeManager = [[RZCellSizeManager alloc] init];
+    [self.sizeManager registerCellClassName:@"RZTableViewCell"
+                               withNibNamed:nil
+                             forObjectClass:nil
+                     withConfigurationBlock:^(RZTableViewCell* cell, id object) {
+                         [cell setCellData:object];
+                     }];
 }
 
 - (void)configureTableView

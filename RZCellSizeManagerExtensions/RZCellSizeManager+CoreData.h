@@ -11,6 +11,9 @@
 
 @interface RZCellSizeManager (CoreData)
 
-- (void)invalidateCellHeightsForResultsController:(NSFetchedResultsController *)controller changeType:(NSFetchedResultsChangeType)type indexPath:(NSIndexPath *)indexPath newIndexPath:(NSIndexPath *)newIndexPath;
+- (void)invalidateCellHeightsForResultsController:(NSFetchedResultsController *)controller
+                                       changeType:(NSFetchedResultsChangeType)type
+                                        indexPath:(NSIndexPath *)indexPath
+                                     newIndexPath:(NSIndexPath *)newIndexPath;
 
 @end

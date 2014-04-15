@@ -34,91 +34,207 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
 /**
  *  RZCellSizeManager
  *
- *  RZCellSizeManager is an object that can be created to manage custom cell sizes.
- *  All sizes calculated will be cached so that look-up times will be much faster for additional
- *  calls for the size of a cell based on an index path.
- *  The cached heights can be invalidated at any time by indexpath or the entire cache.
+ *  RZCellSizeManager is an object that can be created to manage custom UITableViewCell heights or UICollectionViewCell sizes.
+ *  All sizes calculated will be cached so that look-up times will be much faster for additional calls for the size of a cell based 
+ *  on an index path. The cached heights can be invalidated at any time by indexpath or the entire cache.
  **/
-
 @interface RZCellSizeManager : NSObject
 
-// Assumes that the cell comes from a nib and has the same name as the class
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                          objectClass:(Class)objectClass
-                   configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
 
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                  cellReuseIdentifier:(NSString *)reuseIdentifier
-                   configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
-
-
-// This version still caches heights, but instead of autolayout uses the response from the provided block instead.
-// Useful for when height is only dependent on one particular view and performance may be an issue.
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                          objectClass:(Class)objectClass
-                          heightBlock:(RZCellSizeManagerHeightBlock)heightBlock;
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                  cellReuseIdentifier:(NSString *)reuseIdentifier
-                          heightBlock:(RZCellSizeManagerHeightBlock)heightBlock;
-
-
-// This version still caches sizes, but instead of autolayout uses the response from the provided block instead.
-// Useful for when height is only dependent on one particular view and performance may be an issue.
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                          objectClass:(Class)objectClass
-                            sizeBlock:(RZCellSizeManagerSizeBlock)sizeBlock;
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                  cellReuseIdentifier:(NSString *)reuseIdentifier
-                            sizeBlock:(RZCellSizeManagerSizeBlock)sizeBlock;
-
-
-// Registration For additional cells using a configurationBlock
+/**
+ *  Registers a cell by its class name for a particular data object class. 
+ *  The size/height will be computed automatically by autolayout after the cell is configured by a required block.
+ *
+ *  This flavor of registration is useful for registering a cell that represents an instance of 
+ *  a model object if the cell's size/height can be determined by autolayout and the data in the object.
+ *
+ *  @warning    The configuration of the cell within the block should be simple and efficient.
+ *              Cells with lots of autolayout constraints may slow down the responseiveness of the UI during size/height computation.
+ *              If the cell configuration is complex, it may be better to use a size/height block registration instead.
+ *
+ *  @param cellClass          Name of the cell class. Must not be nil.
+ *  @param nibNameOrNil       Name of the nib file representing the cell, or nil to use the default name (or if there is no nib)
+ *  @param objectClass        Class of the model object this cell represents, or Nil to use this block for all cells.
+ *  @param configurationBlock Block which is passed a pointer to the cell as well as a pointer to the model object, if applicable.
+ *                            The block should configure the cell's subviews from the model object. Must not be nil.
+ *
+ */
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
                forObjectClass:(Class)objectClass
-           configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
+       withConfigurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
+
+/**
+ *  Registers a cell by its class name, for a particular reuse identifier. 
+ *  The size/height of the cell will be computed using a configuration block.
+ *
+ *  This flavor of registration is useful for registering a cell that represents an instance of
+ *  a model object if the cell's size/height can be determined by autolayout and the data in the object.
+ *
+ *  @warning    The configuration of the cell within the block should be simple and efficient.
+ *              Cells with lots of autolayout constraints may slow down the responseiveness of the UI during size/height computation.
+ *              If the cell configuration is complex, it may be better to use a size/height block registration instead.
+ *
+ *  @param cellClass          Name of the cell class. Must not be nil.
+ *  @param nibNameOrNil       Name of the nib file representing the cell, or nil to use the default name (or if there is no nib)
+ *  @param reuseIdentifier    Reuse identifier of the cell, or nil if all cells will have the same identifier
+ *  @param configurationBlock Block which is passed a pointer to the cell as well as the model object for the cell, if applicable.
+ *                            The block should configure the cell's subviews from the model object. Must not be nil.
+ */
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
            forReuseIdentifier:(NSString *)reuseIdentifier
        withConfigurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
 
-// Registration For additional cells using a heightBlock
+/**
+ *  Registers a cell by its class name, for a particular data object class. 
+ *  The height of the cell will be computed externally using using a height block.
+ *
+ *  This flavor of registration is useful for registering a table view cell whose height can easily be computed
+ *  externally (not using autolayout).
+ *
+ *  @param cellClass          Name of the cell class. Must not be nil.
+ *  @param nibNameOrNil       Name of the nib file representing the cell, or nil to use the default name (or if there is no nib)
+ *  @param objectClass        Class of the model object this cell represents, or Nil to use this block for all cells.
+ *  @param heightBlock        Block which is passed a pointer to the cell as well as the model object for the cell, if applicable.
+ *                            This block should compute the height of the cell and return it. Must not be nil.
+ */
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
                forObjectClass:(Class)objectClass
               withHeightBlock:(RZCellSizeManagerHeightBlock)heightBlock;
+
+/**
+ *  Registers a cell by its class name, for a particular reuse identifier.
+ *  The height of the cell will be computed externally using using a height block.
+ *
+ *  This flavor of registration is useful for registering a table view cell whose height can easily be computed
+ *  externally (not using autolayout).
+ *
+ *  @param cellClass          Name of the cell class. Must not be nil.
+ *  @param nibNameOrNil       Name of the nib file representing the cell, or nil to use the default name (or if there is no nib)
+ *  @param reuseIdentifier    Reuse identifier of the cell, or nil if all cells will have the same identifier
+ *  @param heightBlock        Block which is passed a pointer to the cell as well as the model object for the cell, if applicable.
+ *                            This block should compute the height of the cell and return it. Must not be nil.
+ */
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
            forReuseIdentifier:(NSString *)reuseIdentifier
               withHeightBlock:(RZCellSizeManagerHeightBlock)heightBlock;
 
-// Registration for additional cells using the sizeBlock
+/**
+ *  Registers a cell by its class name, for a particular data object class.
+ *  The height of the cell will be computed externally using using a size block.
+ *
+ *  This flavor of registration is useful for registering a collection view cell whose size can easily be computed
+ *  externally (not using autolayout).
+ *
+ *  @param cellClass          Name of the cell class. Must not be nil.
+ *  @param nibNameOrNil       Name of the nib file representing the cell, or nil to use the default name (or if there is no nib)
+ *  @param objectClass        Class of the model object this cell represents, or Nil to use this block for all cells.
+ *  @param sizeBlock          Block which is passed a pointer to the cell as well as the model object for the cell, if applicable.
+ *                            This block should compute the size of the cell and return it. Must not be nil.
+ */
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
                forObjectClass:(Class)objectClass
                 withSizeBlock:(RZCellSizeManagerSizeBlock)sizeBlock;
+
+/**
+ *  Registers a cell by its class name, for a particular reuse identifier.
+ *  The height of the cell will be computed externally using using a size block.
+ *
+ *  This flavor of registration is useful for registering a collection view cell whose size can easily be computed
+ *  externally (not using autolayout).
+ *
+ *  @param cellClass          Name of the cell class. Must not be nil.
+ *  @param nibNameOrNil       Name of the nib file representing the cell, or nil to use the default name (or if there is no nib)
+ *  @param reuseIdentifier    Reuse identifier of the cell, or nil if all cells will have the same identifier
+ *  @param sizeBlock          Block which is passed a pointer to the cell as well as the model object for the cell, if applicable.
+ *                            This block should compute the size of the cell and return it. Must not be nil.
+ */
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
            forReuseIdentifier:(NSString *)reuseIdentifier
                 withSizeBlock:(RZCellSizeManagerSizeBlock)sizeBlock;
 
-// Clears the cached heights.
+/**
+ *  Invalidate the entire cache of cell sizes.
+ */
 - (void)invalidateCellSizeCache;
+
+/**
+ *  Invalidate the cached size for a cell at a particular index paths.
+ *
+ *  @param indexPath The index path of the cell for which the size will be invalidated. Must not be nil.
+ */
 - (void)invalidateCellSizeAtIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ *  Invalidate the cached sizes for multiple cells.
+ *
+ *  @param indexPaths An array of NSIndexPaths of the cells for which the size will be invalidated. Must not be nil.
+ */
 - (void)invalidateCellSizesAtIndexPaths:(NSArray *)indexPaths;
 
-// This defaults to 1 px.  This is because a UITableViewCell uses a seperator as part of its height so it will cut off the content.
-// You should set this to 0 if you don't have cell dividers, or set it to whatever you divider is set too.
+
+/**
+ *  Extra padding of the cell height. This defaults to 1 px.  
+ *
+ *  This is necessary because a UITableViewCell uses a seperator as part of its height so it will cut off the content.
+ *  You should set this to 0 if you don't have cell dividers, or set it to whatever you divider is set too.
+ */
 @property (nonatomic, assign) CGFloat cellHeightPadding;
 
-// This is used to override a static width for a cell.  A possible usecase would be having a cell created for iPhone at 320.0 pt's wide
-//  work on an iPad with a width of 768.0 pt's.  Setting this automatically invalidates the cache.
-//
-// NOTE: If you have labels that you want to have a dynamic height you must make sure that the preferredMaxLayoutWidth is correct.
-//  You can use the RZAutolayoutLabel subclass for this if you need to.
+/**
+ *   This is used to override a static width for a cell.  
+ *   A possible use case would be having a cell created for iPhone at 320.0 pts wide work on an iPad with a width of 768.0 pts.
+ *   Setting this automatically invalidates the cache.
+ *   @warning If you have labels that you want to have a dynamic height you must make sure that the preferredMaxLayoutWidth is correct.
+ */
 @property (nonatomic, assign) CGFloat overideWidth;
+ 
 
-
-// Returns the height for the cell given an object and an index.
+/**
+ *  Return the height for a table view cell at a particular index path, for a particular object.
+ *
+ *  @param object    Optional model object which will be used to configure the cell.
+ *  @param indexPath Index path of the cell.
+ *
+ *  @return Height of the cell.
+ */
 - (CGFloat)cellHeightForObject:(id)object indexPath:(NSIndexPath *)indexPath;
+
+/**
+ *  Return the height for a table view cell at a particular index path, for a particular object and reuse identifier.
+ *
+ *  @param object          Optional model object which will be used to configure the cell.
+ *  @param indexPath       Index path of the cell.
+ *  @param reuseIdentifier Reuse identifier of the cell.
+ *
+ *  @return Height of the cell.
+ */
 - (CGFloat)cellHeightForObject:(id)object indexPath:(NSIndexPath *)indexPath cellReuseIdentifier:(NSString *)reuseIdentifier;
 
-// Returns the Size for the cell given an object and an index.
+/**
+ *  Return the size for a collection view cell at a particular index path, for a particular object.
+ *
+ *  @param object    Optional model object which will be used to configure the cell.
+ *  @param indexPath Index path of the cell.
+ *
+ *  @return Size of the cell.
+ */
 - (CGSize)cellSizeForObject:(id)object indexPath:(NSIndexPath *)indexPath;
+
+/**
+ *  Return the size for a collection view cell at a particular index path, for a particular object and reuse identifier.
+ *
+ *  @param object          Optional model object which will be used to configure the cell.
+ *  @param indexPath       Index path of the cell.
+ *  @param reuseIdentifier Reuse identifier of the cell.
+ *
+ *  @return Size of the cell.
+ */
 - (CGSize)cellSizeForObject:(id)object indexPath:(NSIndexPath *)indexPath cellReuseIdentifier:(NSString *)reuseIdentifier;
 
 @end
