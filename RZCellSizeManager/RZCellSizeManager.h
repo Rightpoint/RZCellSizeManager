@@ -186,7 +186,7 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
  */
 @property (nonatomic, assign) CGFloat cellHeightPadding;
 
-/* 
+/**
  *   This is used to override a static width for a cell.  
  *   A possible use case would be having a cell created for iPhone at 320.0 pts wide work on an iPad with a width of 768.0 pts.
  *   Setting this automatically invalidates the cache.
