@@ -206,10 +206,10 @@
     {
         _overideWidth = overideWidth;
         [self.cellConfigurations enumerateKeysAndObjectsUsingBlock:^(id key, RZCellSizeManagerCellConfiguration *obj, BOOL *stop) {
-            UIView *cell = obj.cell;
-            CGRect frame = [cell frame];
-            frame.size.width = overideWidth;
-            [cell setFrame:frame];
+            id cell = obj.cell;
+            CGRect overideFrame = [cell frame];
+            overideFrame.size.width = overideWidth;
+            [cell setFrame:overideFrame];
             [cell setNeedsLayout];
             [cell layoutIfNeeded];
         }];
@@ -451,9 +451,9 @@
     
     if (self.overideWidth != 0)
     {
-        CGRect frame = [cell frame];
-        frame.size.width = self.overideWidth;
-        [cell setFrame:frame];
+        CGRect overideFrame = [cell frame];
+        overideFrame.size.width = self.overideWidth;
+        [cell setFrame:overideFrame];
         [cell setNeedsLayout];
         [cell layoutIfNeeded];
     }
