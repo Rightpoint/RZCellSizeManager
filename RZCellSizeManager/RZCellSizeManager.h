@@ -34,9 +34,9 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
 /**
  *  RZCellSizeManager
  *
- *  RZCellSizeManager is an object that can be created to manage custom UITableViewCell heights or UICollectionViewCell sizes.
+ *  RZCellSizeManager is an object that streamlines the management of dynamic UITableViewCell heights or UICollectionViewCell sizes.
  *  All sizes calculated will be cached so that look-up times will be much faster for additional calls for the size of a cell based 
- *  on an index path. The cached heights can be invalidated at any time by indexpath or the entire cache.
+ *  on an index path. The cached heights can be invalidated at any time by indexPath or for the entire cache.
  **/
 @interface RZCellSizeManager : NSObject
 
