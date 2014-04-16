@@ -26,43 +26,55 @@ Copy the RZCellSizeManager folder into your project.  All you need is the ```RZC
 Implementation
 --------------
 
-There are two different approaches to using `RZCellSizeManager`.  The first is to use a ReuseIdentifier to register your cell class.  This is a familiar approach since it is how we interact normally with a UITableView or a UICollectionView
+To use RZCellSizeManager you first must create an instance to it.
 
 ```
 @property (strong, nonatomic) RZCellSizeManager* sizeManager;
 ```
+```
+self.sizeManager = [[RZCellSizeManager alloc] init];
 
 ```
-self.sizeManager = [[RZCellSizeManager alloc] initWithCellClassName:@"TableViewCell" cellReuseIdentifier:[TableViewCell reuseIdentifier] configurationBlock:^(TableViewCell* cell, id object) {
+
+Once we have an instance we can then register different cell classes/nibs.
+
+Depending on what your use case is there are a few different methods to do this (See the in class documentation for more methods):
+
+```
+- (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
+           forReuseIdentifier:(NSString *)reuseIdentifier
+       withConfigurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock; 
+       
+- (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
+               forObjectClass:(Class)objectClass
+       withConfigurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
+       
+```
+The first method above will work similar to how your `UITableView` interaction will work.  You give RZCellSizeManager a cell class name, an optional nib name, and a reuseIdentifier.  The last parameter here is a configuration block which you will use to configure your cell given an optional object and an indexPath.
+
+```
+self.sizeManager registerCellClassName:NSStringFromClass([TableViewCell class]) withNibNamed:nil forReuseIdentifier:[TableViewCell reuseIdentifier] configurationBlock:^(TableViewCell* cell, id object) {
         [cell setCellData:object];
     }];
 ```
-
 If you pass in a reuseIdentifier of `nil` it will work fine so long as you only have one cell type.
     
-The second approach is to register with an object class.
+The second approach is to register with an object class.  Based on a paticular object class it will choose the correct cell for you.
 
-	self.sizeManager = [[RZCellSizeManager alloc] initWithCellClassName:@"TableViewCell" objectClass:[CellData class] configurationBlock:^(TableViewCell* cell, id object) {
+```
+self.sizeManager registerCellClassName:NSStringFromClass([TableViewCell class]) withNibNamed:nil forObjectClass:[CellData class] configurationBlock:^(TableViewCell *cell, CellData *object) {
         [cell setCellData:object];
     }];
-
-Either method supports the ability to register additional cell classes, either for additional ReuseIdentifiers or object classes.
-	
-	- (void)registerCellClassName:(NSString *)cellClass
-               forObjectClass:(Class)objectClass
-           configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
-           
-	- (void)registerCellClassName:(NSString *)cellClass
-           forReuseIdentifier:(NSString *)reuseIdentifier
-       withConfigurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
-    
+```
 Mixing the two different methods will result in unsupported behavior.
 
 In this case we are setting an object on the cell which will set two different labels.  Both of these labels are configured with autolayout so they will adjust their size depending on the content of them.  Here is an example of the  ```setCellData:``` method
 
 ```
 // Using AutoLayout
-- (void)setCellData:(RZCellData *)cellData
+- (void)setCellData:(CellData *)cellData
 {
     self.titleLabel.text = cellData.title;
     self.descriptionLabel.text = cellData.subTitle;
