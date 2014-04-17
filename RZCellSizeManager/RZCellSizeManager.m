@@ -163,6 +163,7 @@
  **/
 
 @interface RZCellSizeManager ()
+
 @property (nonatomic, strong) NSMutableDictionary* cellConfigurations;
 @property (nonatomic, strong) id offScreenCell;
 @property (nonatomic, strong) NSString* cellClassName;
@@ -175,6 +176,7 @@
 @property (nonatomic, copy) RZCellSizeManagerConfigBlock configurationBlock;
 @property (nonatomic, copy) RZCellSizeManagerHeightBlock heightBlock;
 @property (nonatomic, copy) RZCellSizeManagerSizeBlock sizeBlock;
+
 @end
 
 @implementation RZCellSizeManager
@@ -182,110 +184,18 @@
 #pragma mark - Initializers
 
 /**
- * Initializers for use with the configurationBlock method
- **/
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self)
-    {
-        [self commonInit];
-    }
-    return self;
-}
-
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                          objectClass:(Class)objectClass
-                   configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock
-{
-    self = [super init];
-    if (self)
-    {
-        [self commonInit];
-        [self registerCellClassName:cellClass forObjectClass:objectClass configurationBlock:configurationBlock];
-    }
-    return self;
-}
-
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                  cellReuseIdentifier:(NSString *)reuseIdentifier
-                   configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock
-{
-    self = [super init];
-    if (self)
-    {
-        [self commonInit];
-        [self registerCellClassName:cellClass forReuseIdentifier:reuseIdentifier withConfigurationBlock:configurationBlock];
-    }
-    return self;
-}
-
-/**
- * Initializers for use with the HeightBlock method
- **/
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                          objectClass:(Class)objectClass
-                          heightBlock:(RZCellSizeManagerHeightBlock)heightBlock
-{
-    self = [super init];
-    if (self)
-    {
-        [self commonInit];
-        [self registerCellClassName:cellClass forObjectClass:objectClass withHeightBlock:heightBlock];
-    }
-    return self;
-}
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                  cellReuseIdentifier:(NSString *)reuseIdentifier
-                          heightBlock:(RZCellSizeManagerHeightBlock)heightBlock
-{
-    self = [super init];
-    if (self)
-    {
-        [self commonInit];
-        [self registerCellClassName:cellClass forReuseIdentifier:reuseIdentifier withHeightBlock:heightBlock];
-    }
-    return self;
-}
-
-/**
- * Initializers for use with the SizeBlock Method
- **/
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                          objectClass:(Class)objectClass
-                            sizeBlock:(RZCellSizeManagerSizeBlock)sizeBlock
-{
-    self = [super init];
-    if (self)
-    {
-        [self commonInit];
-        [self registerCellClassName:cellClass forObjectClass:objectClass withSizeBlock:sizeBlock];
-    }
-    return self;
-}
-- (instancetype)initWithCellClassName:(NSString *)cellClass
-                  cellReuseIdentifier:(NSString *)reuseIdentifier
-                            sizeBlock:(RZCellSizeManagerSizeBlock)sizeBlock
-{
-    self = [super init];
-    if (self)
-    {
-        [self commonInit];
-        [self registerCellClassName:cellClass forReuseIdentifier:reuseIdentifier withSizeBlock:sizeBlock];
-    }
-    return self;
-}
-
-/**
  * A common init function
  * Initializes the cellConfigurations dictionary and the cellSizeCache.
  **/
-- (void)commonInit
+- (instancetype)init
 {
-    self.cellConfigurations = [NSMutableDictionary dictionary];
-    self.cellSizeCache = [[NSCache alloc] init];
-    self.cellHeightPadding = kRZCellSizeManagerDefaultCellHeightPadding;
+    self = [super init];
+    if ( self ) {
+        _cellConfigurations = [NSMutableDictionary dictionary];
+        _cellSizeCache = [[NSCache alloc] init];
+        _cellHeightPadding = kRZCellSizeManagerDefaultCellHeightPadding;
+    }
+    return self;
 }
 
 #pragma mark - Custom Setters
@@ -309,11 +219,33 @@
 
 #pragma mark - Registration methods
 
+
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
+               forObjectClass:(Class)objectClass
+       withConfigurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock
+{
+    NSParameterAssert(cellClass);
+    NSParameterAssert(configurationBlock);
+    
+    id cell = [self configureOffScreenCellWithCellClassName:cellClass nibName:nibNameOrNil];
+    
+    RZCellSizeManagerCellConfiguration* configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell
+                                                                                                            cellClass:cellClass
+                                                                                                          objectClass:objectClass
+                                                                                                   configurationBlock:configurationBlock];
+    [self.cellConfigurations setObject:configuration forKey:cellClass];
+}
+
+- (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
            forReuseIdentifier:(NSString *)reuseIdentifier
        withConfigurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock
 {
-    id cell = [self configureOffScreenCellWithCellClassName:cellClass];
+    NSParameterAssert(cellClass);
+    NSParameterAssert(configurationBlock);
+    
+    id cell = [self configureOffScreenCellWithCellClassName:cellClass nibName:nibNameOrNil];
     
     RZCellSizeManagerCellConfiguration* configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell
                                                                                                             cellClass:cellClass
@@ -323,24 +255,16 @@
     [self.cellConfigurations setObject:configuration forKey:cellClass];
 }
 
-- (void)registerCellClassName:(NSString *)cellClass
-               forObjectClass:(Class)objectClass
-           configurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock
-{
-    id cell = [self configureOffScreenCellWithCellClassName:cellClass];
-
-    RZCellSizeManagerCellConfiguration* configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell
-                                                                                                            cellClass:cellClass
-                                                                                                          objectClass:objectClass
-                                                                                                   configurationBlock:configurationBlock];
-    [self.cellConfigurations setObject:configuration forKey:cellClass];
-}
 
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
                forObjectClass:(Class)objectClass
               withHeightBlock:(RZCellSizeManagerHeightBlock)heightBlock
 {
-    id cell = [self configureOffScreenCellWithCellClassName:cellClass];
+    NSParameterAssert(cellClass);
+    NSParameterAssert(heightBlock);
+    
+    id cell = [self configureOffScreenCellWithCellClassName:cellClass nibName:nibNameOrNil];
     RZCellSizeManagerCellConfiguration* configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell
                                                                                                             cellClass:cellClass
                                                                                                           objectClass:objectClass
@@ -349,10 +273,14 @@
 }
 
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
            forReuseIdentifier:(NSString *)reuseIdentifier
               withHeightBlock:(RZCellSizeManagerHeightBlock)heightBlock
 {
-    id cell = [self configureOffScreenCellWithCellClassName:cellClass];
+    NSParameterAssert(cellClass);
+    NSParameterAssert(heightBlock);
+    
+    id cell = [self configureOffScreenCellWithCellClassName:cellClass nibName:nibNameOrNil];
     RZCellSizeManagerCellConfiguration* configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell
                                                                                                             cellClass:cellClass
                                                                                                           objectClass:nil
@@ -362,10 +290,14 @@
 }
 
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
                forObjectClass:(Class)objectClass
                 withSizeBlock:(RZCellSizeManagerSizeBlock)sizeBlock
 {
-    id cell = [self configureOffScreenCellWithCellClassName:cellClass];
+    NSParameterAssert(cellClass);
+    NSParameterAssert(sizeBlock);
+    
+    id cell = [self configureOffScreenCellWithCellClassName:cellClass nibName:nibNameOrNil];
     RZCellSizeManagerCellConfiguration* configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell
                                                                                                             cellClass:cellClass
                                                                                                           objectClass:objectClass
@@ -374,10 +306,14 @@
 }
 
 - (void)registerCellClassName:(NSString *)cellClass
+                 withNibNamed:(NSString *)nibNameOrNil
            forReuseIdentifier:(NSString *)reuseIdentifier
                 withSizeBlock:(RZCellSizeManagerSizeBlock)sizeBlock
 {
-    id cell = [self configureOffScreenCellWithCellClassName:cellClass];
+    NSParameterAssert(cellClass);
+    NSParameterAssert(sizeBlock);
+    
+    id cell = [self configureOffScreenCellWithCellClassName:cellClass nibName:nibNameOrNil];
     RZCellSizeManagerCellConfiguration* configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell
                                                                                                             cellClass:cellClass
                                                                                                           objectClass:nil
@@ -385,13 +321,113 @@
     configuration.reuseIdentifier = reuseIdentifier;
     [self.cellConfigurations setObject:configuration forKey:cellClass];
 }
+
+#pragma mark - Other Public Methods
+
+- (void)invalidateCellSizeCache
+{
+    [self.cellSizeCache removeAllObjects];
+}
+
+- (void)invalidateCellSizeAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSParameterAssert(indexPath);
+    [self.cellSizeCache removeObjectForKey:indexPath];
+}
+
+- (void)invalidateCellSizesAtIndexPaths:(NSArray *)indexPaths
+{
+    NSParameterAssert(indexPaths);
+    [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath* obj, NSUInteger idx, BOOL *stop) {
+        [self.cellSizeCache removeObjectForKey:obj];
+    }];
+}
+
+- (CGFloat)cellHeightForObject:(id)object indexPath:(NSIndexPath *)indexPath
+{
+    return [self cellHeightForObject:object indexPath:indexPath cellReuseIdentifier:nil];
+}
+
+- (CGFloat)cellHeightForObject:(id)object indexPath:(NSIndexPath *)indexPath cellReuseIdentifier:(NSString *)reuseIdentifier
+{
+    NSParameterAssert(indexPath);
+
+    NSNumber * height = [self.cellSizeCache objectForKey:indexPath];
+    if (height == nil)
+    {
+        RZCellSizeManagerCellConfiguration* configuration = [self configurationForObject:object reuseIdentifier:reuseIdentifier];
+        
+        height = [self cellHeightForObject:object configuration:configuration];
+        
+        if (height)
+        {
+            [self.cellSizeCache setObject:height forKey:indexPath];
+        }
+    }
+    return [height floatValue];
+}
+
+- (CGSize)cellSizeForObject:(id)object indexPath:(NSIndexPath *)indexPath
+{
+    return [self cellSizeForObject:object indexPath:indexPath cellReuseIdentifier:nil];
+}
+
+- (CGSize)cellSizeForObject:(id)object indexPath:(NSIndexPath *)indexPath cellReuseIdentifier:(NSString *)reuseIdentifier
+{
+    NSParameterAssert(indexPath);
+    
+    id obj = [self.cellSizeCache objectForKey:indexPath];
+    CGSize size = CGSizeZero;
+    if (obj == nil)
+    {
+        RZCellSizeManagerCellConfiguration* configuration = [self configurationForObject:object reuseIdentifier:reuseIdentifier];
+        
+        BOOL validSize = NO;
+        if (configuration)
+        {
+            if (configuration.configurationBlock)
+            {
+                configuration.configurationBlock(configuration.cell, object);
+                UIView* contentView = [configuration.cell contentView];
+                size = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+                validSize = YES;
+                
+            }
+            else if (configuration.heightBlock)
+            {
+                size = configuration.sizeBlock(configuration.cell, object);
+                validSize = YES;
+                
+            }
+            
+        }
+        
+        
+        if (validSize)
+        {
+            [self.cellSizeCache setObject:[NSValue valueWithCGSize:size] forKey:indexPath];
+        }
+        
+    }
+    else
+    {
+        // Hopefully we have an NSValue object that has a CGSize value
+        if ([obj isKindOfClass:[NSValue class]])
+        {
+            size = [obj CGSizeValue];
+        }
+    }
+    return size;
+}
+
+#pragma mark - Private Methods
 
 /**
  * Creates a cell to be stored offscreen to use for AutoLayout.
  * The cell is initially created from a nib that shares the same name as the class passed in.
  *  It will then just allocate an instance using the default init.
  **/
-- (id)configureOffScreenCellWithCellClassName:(NSString *)className
+- (id)configureOffScreenCellWithCellClassName:(NSString *)className nibName:(NSString *)nibNameOrNil
 {
     if ([self.cellConfigurations objectForKey:className])
     {
@@ -402,22 +438,24 @@
     id cell = nil;
     if (className)
     {
-        UINib* nib = [UINib nibWithNibName:className bundle:nil];
+        NSString *nibName = nibNameOrNil != nil ? nibNameOrNil : className;
+        UINib* nib = [UINib nibWithNibName:nibName bundle:nil];
         cell = [[nib instantiateWithOwner:nil options:nil] objectAtIndex:0];
         [cell moveConstraintsToContentView];
-        if (self.overideWidth != 0)
-        {
-            CGRect overideFrame = [cell frame];
-            overideFrame.size.width = self.overideWidth;
-            [cell setFrame:overideFrame];
-            [cell setNeedsLayout];
-            [cell layoutIfNeeded];
-        }
     }
     
     if (!cell)
     {
         cell = [[NSClassFromString(className) alloc] init];
+    }
+    
+    if (self.overideWidth != 0)
+    {
+        CGRect overideFrame = [cell frame];
+        overideFrame.size.width = self.overideWidth;
+        [cell setFrame:overideFrame];
+        [cell setNeedsLayout];
+        [cell layoutIfNeeded];
     }
     
     NSAssert(cell != nil, @"Cell not created successfully.  Make sure there is a cell with your class name in your project:%@",className);
@@ -483,99 +521,6 @@
     }
     return height;
 
-}
-
-
-#pragma mark - Public Methods
-
-- (void)invalidateCellSizeCache
-{
-    [self.cellSizeCache removeAllObjects];
-}
-
-- (void)invalidateCellSizeAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self.cellSizeCache removeObjectForKey:indexPath];
-}
-
-- (void)invalidateCellSizesAtIndexPaths:(NSArray *)indexPaths
-{
-    [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath* obj, NSUInteger idx, BOOL *stop) {
-        [self.cellSizeCache removeObjectForKey:obj];
-    }];
-}
-
-- (CGFloat)cellHeightForObject:(id)object indexPath:(NSIndexPath *)indexPath
-{
-    return [self cellHeightForObject:object indexPath:indexPath cellReuseIdentifier:nil];
-}
-
-- (CGFloat)cellHeightForObject:(id)object indexPath:(NSIndexPath *)indexPath cellReuseIdentifier:(NSString *)reuseIdentifier
-{
-    NSNumber * height = [self.cellSizeCache objectForKey:indexPath];
-    if (height == nil)
-    {
-        RZCellSizeManagerCellConfiguration* configuration = [self configurationForObject:object reuseIdentifier:reuseIdentifier];
-        
-        height = [self cellHeightForObject:object configuration:configuration];
-        
-        if (height)
-        {
-            [self.cellSizeCache setObject:height forKey:indexPath];
-        }
-    }
-    return [height floatValue];
-}
-
-- (CGSize)cellSizeForObject:(id)object indexPath:(NSIndexPath *)indexPath
-{
-    return [self cellSizeForObject:object indexPath:indexPath cellReuseIdentifier:nil];
-}
-
-- (CGSize)cellSizeForObject:(id)object indexPath:(NSIndexPath *)indexPath cellReuseIdentifier:(NSString *)reuseIdentifier
-{
-    id obj = [self.cellSizeCache objectForKey:indexPath];
-    CGSize size = CGSizeZero;
-    if (obj == nil)
-    {
-        RZCellSizeManagerCellConfiguration* configuration = [self configurationForObject:object reuseIdentifier:reuseIdentifier];
-
-        BOOL validSize = NO;
-        if (configuration)
-        {
-            if (configuration.configurationBlock)
-            {
-                configuration.configurationBlock(configuration.cell, object);
-                UIView* contentView = [configuration.cell contentView];
-                size = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-                validSize = YES;
-
-            }
-            else if (configuration.heightBlock)
-            {
-                size = configuration.sizeBlock(configuration.cell, object);
-                validSize = YES;
-
-            }
-            
-        }
-
-        
-        if (validSize)
-        {
-            [self.cellSizeCache setObject:[NSValue valueWithCGSize:size] forKey:indexPath];
-        }
-        
-    }
-    else
-    {
-        // Hopefully we have an NSValue object that has a CGSize value
-        if ([obj isKindOfClass:[NSValue class]])
-        {
-            size = [obj CGSizeValue];
-        }
-    }
-    return size;
 }
 
 @end
