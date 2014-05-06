@@ -23,13 +23,13 @@
 		98027A0618649DFA007FD75F /* RZTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98027A0418649DFA007FD75F /* RZTableViewController.m */; };
 		98027A0718649DFA007FD75F /* RZTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98027A0518649DFA007FD75F /* RZTableViewController.xib */; };
 		98027A0B18649E12007FD75F /* RZTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 98027A0918649E12007FD75F /* RZTableViewCell.m */; };
-		98027A0C18649E12007FD75F /* RZTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98027A0A18649E12007FD75F /* RZTableViewCell.xib */; };
 		983CCEBE187DE3890051B482 /* RZCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 983CCEBD187DE3890051B482 /* RZCoreDataManager.m */; };
 		983CCEC1187DE45D0051B482 /* RZModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 983CCEBF187DE45D0051B482 /* RZModel.xcdatamodeld */; };
 		985531CE188982B7002DE058 /* RZSecondTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 985531CC188982B7002DE058 /* RZSecondTableViewCell.m */; };
-		985531CF188982B7002DE058 /* RZSecondTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 985531CD188982B7002DE058 /* RZSecondTableViewCell.xib */; };
 		985531D618898459002DE058 /* RZMultiCellTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 985531D418898459002DE058 /* RZMultiCellTableViewController.m */; };
 		985531D718898459002DE058 /* RZMultiCellTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 985531D518898459002DE058 /* RZMultiCellTableViewController.xib */; };
+		988183F01919301E00D60DEB /* RZSecondTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 988183EE1919301E00D60DEB /* RZSecondTableViewCell.xib */; };
+		988183F11919301E00D60DEB /* RZTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 988183EF1919301E00D60DEB /* RZTableViewCell.xib */; };
 		98AE9CFD187DFB5E0033C623 /* RZEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 98AE9CFC187DFB5E0033C623 /* RZEntry.m */; };
 		98AE9D01187DFD480033C623 /* RZCoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98AE9CFF187DFD480033C623 /* RZCoreDataTableViewController.m */; };
 		98AE9D02187DFD480033C623 /* RZCoreDataTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98AE9D00187DFD480033C623 /* RZCoreDataTableViewController.xib */; };
@@ -74,16 +74,16 @@
 		98027A0518649DFA007FD75F /* RZTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZTableViewController.xib; sourceTree = "<group>"; };
 		98027A0818649E12007FD75F /* RZTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZTableViewCell.h; sourceTree = "<group>"; };
 		98027A0918649E12007FD75F /* RZTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZTableViewCell.m; sourceTree = "<group>"; };
-		98027A0A18649E12007FD75F /* RZTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZTableViewCell.xib; sourceTree = "<group>"; };
 		983CCEBC187DE3890051B482 /* RZCoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RZCoreDataManager.h; path = CoreData/RZCoreDataManager.h; sourceTree = "<group>"; };
 		983CCEBD187DE3890051B482 /* RZCoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RZCoreDataManager.m; path = CoreData/RZCoreDataManager.m; sourceTree = "<group>"; };
 		983CCEC0187DE45D0051B482 /* RZModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RZModel.xcdatamodel; sourceTree = "<group>"; };
 		985531CB188982B7002DE058 /* RZSecondTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZSecondTableViewCell.h; sourceTree = "<group>"; };
 		985531CC188982B7002DE058 /* RZSecondTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZSecondTableViewCell.m; sourceTree = "<group>"; };
-		985531CD188982B7002DE058 /* RZSecondTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZSecondTableViewCell.xib; sourceTree = "<group>"; };
 		985531D318898459002DE058 /* RZMultiCellTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZMultiCellTableViewController.h; sourceTree = "<group>"; };
 		985531D418898459002DE058 /* RZMultiCellTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZMultiCellTableViewController.m; sourceTree = "<group>"; };
 		985531D518898459002DE058 /* RZMultiCellTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZMultiCellTableViewController.xib; sourceTree = "<group>"; };
+		988183EE1919301E00D60DEB /* RZSecondTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZSecondTableViewCell.xib; sourceTree = "<group>"; };
+		988183EF1919301E00D60DEB /* RZTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZTableViewCell.xib; sourceTree = "<group>"; };
 		98AE9CFB187DFB5E0033C623 /* RZEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RZEntry.h; path = CoreData/RZEntry.h; sourceTree = "<group>"; };
 		98AE9CFC187DFB5E0033C623 /* RZEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RZEntry.m; path = CoreData/RZEntry.m; sourceTree = "<group>"; };
 		98AE9CFE187DFD480033C623 /* RZCoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RZCoreDataTableViewController.h; path = CoreData/RZCoreDataTableViewController.h; sourceTree = "<group>"; };
@@ -247,12 +247,12 @@
 				98027A0518649DFA007FD75F /* RZTableViewController.xib */,
 				98027A0818649E12007FD75F /* RZTableViewCell.h */,
 				98027A0918649E12007FD75F /* RZTableViewCell.m */,
-				98027A0A18649E12007FD75F /* RZTableViewCell.xib */,
+				988183EF1919301E00D60DEB /* RZTableViewCell.xib */,
 				98F6B615187C8B3700FA9C98 /* RZCellData.h */,
 				98F6B616187C8B3700FA9C98 /* RZCellData.m */,
 				985531CB188982B7002DE058 /* RZSecondTableViewCell.h */,
 				985531CC188982B7002DE058 /* RZSecondTableViewCell.m */,
-				985531CD188982B7002DE058 /* RZSecondTableViewCell.xib */,
+				988183EE1919301E00D60DEB /* RZSecondTableViewCell.xib */,
 			);
 			name = TableView;
 			sourceTree = "<group>";
@@ -334,12 +334,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98027A0C18649E12007FD75F /* RZTableViewCell.xib in Resources */,
 				980279DB186482E3007FD75F /* Images.xcassets in Resources */,
 				98FFC0351886EF0400DB5746 /* RZRootViewController.xib in Resources */,
 				98027A0718649DFA007FD75F /* RZTableViewController.xib in Resources */,
-				985531CF188982B7002DE058 /* RZSecondTableViewCell.xib in Resources */,
+				988183F11919301E00D60DEB /* RZTableViewCell.xib in Resources */,
 				985531D718898459002DE058 /* RZMultiCellTableViewController.xib in Resources */,
+				988183F01919301E00D60DEB /* RZSecondTableViewCell.xib in Resources */,
 				98AE9D02187DFD480033C623 /* RZCoreDataTableViewController.xib in Resources */,
 				980279CD186482E3007FD75F /* InfoPlist.strings in Resources */,
 			);

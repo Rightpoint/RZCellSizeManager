@@ -393,7 +393,7 @@
                 validSize = YES;
                 
             }
-            else if (configuration.heightBlock)
+            else if (configuration.sizeBlock)
             {
                 size = configuration.sizeBlock(configuration.cell, object);
                 validSize = YES;
@@ -440,14 +440,23 @@
     {
         NSString *nibName = nibNameOrNil != nil ? nibNameOrNil : className;
         UINib* nib = [UINib nibWithNibName:nibName bundle:nil];
-        cell = [[nib instantiateWithOwner:nil options:nil] objectAtIndex:0];
+        
+        // Try and instantiate the cell from the nib.  If not we shall just call init on it.
+        @try
+        {
+            cell = [[nib instantiateWithOwner:nil options:nil] objectAtIndex:0];
+        }
+        @catch (NSException *exception)
+        {
+            // There is a chance that we want to just create it with init.
+            cell = [[NSClassFromString(className) alloc] init];
+        }
+        @finally {
+            
+        }
         [cell moveConstraintsToContentView];
     }
     
-    if (!cell)
-    {
-        cell = [[NSClassFromString(className) alloc] init];
-    }
     
     if (self.overideWidth != 0)
     {
