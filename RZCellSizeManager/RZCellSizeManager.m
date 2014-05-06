@@ -387,6 +387,7 @@
         {
             if (configuration.configurationBlock)
             {
+                [configuration.cell prepareForReuse];
                 configuration.configurationBlock(configuration.cell, object);
                 UIView* contentView = [configuration.cell contentView];
                 size = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
