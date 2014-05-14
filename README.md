@@ -14,7 +14,7 @@ Use Cocoapods
 Add the pod to your Podfile:
 
 ```
-pod 'RZCellSizeManager', '~>1.0.0'
+pod 'RZCellSizeManager', '~>1.1'
 ```
 
 
