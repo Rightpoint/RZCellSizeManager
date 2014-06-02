@@ -8,14 +8,10 @@ Pod::Spec.new do |s|
                    DESC
 
   s.homepage     = "https://github.com/Raizlabs/RZCellSizeManager"
-
   s.license      = { :type => 'MIT'}
-
-  s.author             = { "Alex Rouse" => "alex.rouse@raizlabs.com" }
-
+  s.author       = { "Alex Rouse" => "alex.rouse@raizlabs.com" }
   s.platform     = :ios, '7.0'
-
   s.source       = { :git => "https://github.com/Raizlabs/RZCellSizeManager.git", :tag => "1.0.1" }
-
-  s.source_files  = 'RZCellSizeManager/*.{h,m}'
+  s.source_files = 'RZCellSizeManager/*.{h,m}'
+  s.requires_arc = true
 end
