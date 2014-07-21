@@ -17,7 +17,7 @@
     int length = arc4random_uniform(maxLength);
     NSMutableString *randomString = [NSMutableString stringWithCapacity:length];
     for (int i=0; i<length; i++) {
-        [randomString appendFormat: @"%c", [characters characterAtIndex: arc4random_uniform([characters length])]];
+        [randomString appendFormat: @"%c", [characters characterAtIndex: arc4random_uniform((int)[characters length])]];
     }
     return randomString;
 }
