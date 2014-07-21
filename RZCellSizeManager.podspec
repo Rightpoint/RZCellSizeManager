@@ -18,12 +18,12 @@ Pod::Spec.new do |s|
     ss.source_files = 'RZCellSizeManager/*.{h,m}'
   end
   
-  s.subspec 'CoreDataExtension' do |ss|
+  s.subspec 'CoreDataExtensions' do |ss|
     ss.dependency 'RZCellSizeManager/Core'
     ss.source_files = 'RZCellSizeManagerExtensions/*+CoreData.{h,m}'
   end
   
-  s.subspec 'RZCollectionListExtension' do |ss|
+  s.subspec 'RZCollectionListExtensions' do |ss|
     ss.dependency 'RZCellSizeManager/Core'
     ss.source_files = 'RZCellSizeManagerExtensions/*+RZCollectionList.{h,m}'
   end
