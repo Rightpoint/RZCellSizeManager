@@ -20,7 +20,7 @@ pod 'RZCellSizeManager', '~>1.1'
 To get the CoreData or RZCollectionList extensions, use (respectively):
 
 ```
-pod 'RZCellSizeManager/CoreDataExtension', '~>1.1'
+pod 'RZCellSizeManager/CoreDataExtensions', '~>1.1'
 pod 'RZCellSizeManager/RZCollectionListExtensions', '~>1.1'
 ```
 
