@@ -11,6 +11,14 @@
 
 @interface RZCellSizeManager (CoreData)
 
+/**
+ *  Automatically invalidates cell heights based on a fetched results controller
+ *
+ *  @param controller   Results controller that is being observed
+ *  @param type         Type of change
+ *  @param indexPath    The indexPath from the change
+ *  @param newIndexPath The new indexPath from the change
+ */
 - (void)invalidateCellHeightsForResultsController:(NSFetchedResultsController *)controller
                                        changeType:(NSFetchedResultsChangeType)type
                                         indexPath:(NSIndexPath *)indexPath
