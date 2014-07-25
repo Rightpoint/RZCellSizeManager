@@ -12,7 +12,7 @@
 @interface RZCellSizeManager (CoreData)
 
 /**
- *  Automaticcly invalidates cell heights based on a fetched results controller
+ *  Automatically invalidates cell heights based on a fetched results controller
  *
  *  @param controller   Results controller that is being observed
  *  @param type         Type of change
