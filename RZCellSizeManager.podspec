@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "RZCellSizeManager"
-  s.version      = "1.2.0"
+  s.version      = "1.1.1"
   s.summary      = "Dynamic size computation and caching for cells."
 
   s.description  = <<-DESC
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => 'MIT'}
   s.author       = { "Alex Rouse" => "alex.rouse@raizlabs.com" }
   s.platform     = :ios, '7.0'
-  s.source       = { :git => "https://github.com/Raizlabs/RZCellSizeManager.git", :tag => "1.2.0" }
+  s.source       = { :git => "https://github.com/Raizlabs/RZCellSizeManager.git", :tag => "1.1.1" }
   s.requires_arc = true
   
   s.subspec 'Core' do |ss|
