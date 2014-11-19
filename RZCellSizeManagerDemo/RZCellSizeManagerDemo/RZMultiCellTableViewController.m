@@ -72,7 +72,7 @@
     //  expecially applies if you are loading images or anything of that manor.
     
     self.sizeManager = [[RZCellSizeManager alloc] init];
-                        
+
     [self.sizeManager registerCellClassName:@"RZTableViewCell"
                                withNibNamed:nil
                              forObjectClass:[RZCellData class]
@@ -153,7 +153,7 @@
     
     // Since we have multiple different types of cells for the same tableview we either need to register our object classes,
     //  Or we have to give it a reuseIdentifier.
-    return [self.sizeManager cellHeightForObject:object indexPath:indexPath];
+    return [self.sizeManager cellSizeForObject:object indexPath:indexPath].height;
 //    return [self.sizeManager cellHeightForObject:object indexPath:indexPath cellReuseIdentifier:(([object isKindOfClass:[RZCellData class]]) ? [RZTableViewCell reuseIdentifier] : [RZSecondTableViewCell reuseIdentifier])];
     
     

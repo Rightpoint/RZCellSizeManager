@@ -28,7 +28,6 @@
 #import <Foundation/Foundation.h>
 
 typedef void    (^RZCellSizeManagerConfigBlock)(id cell, id object);
-typedef CGFloat (^RZCellSizeManagerHeightBlock)(id cell, id object);
 typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
 
 /**
@@ -85,42 +84,6 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
                  withNibNamed:(NSString *)nibNameOrNil
            forReuseIdentifier:(NSString *)reuseIdentifier
        withConfigurationBlock:(RZCellSizeManagerConfigBlock)configurationBlock;
-
-/**
- *  Registers a cell by its class name, for a particular data object class. 
- *  The height of the cell will be computed externally using using a height block.
- *
- *  This flavor of registration is useful for registering a table view cell whose height can easily be computed
- *  externally (not using autolayout).
- *
- *  @param cellClass          Name of the cell class. Must not be nil.
- *  @param nibNameOrNil       Name of the nib file representing the cell, or nil to use the default name (or if there is no nib)
- *  @param objectClass        Class of the model object this cell represents, or Nil to use this block for all cells.
- *  @param heightBlock        Block which is passed a pointer to the cell as well as the model object for the cell, if applicable.
- *                            This block should compute the height of the cell and return it. Must not be nil.
- */
-- (void)registerCellClassName:(NSString *)cellClass
-                 withNibNamed:(NSString *)nibNameOrNil
-               forObjectClass:(Class)objectClass
-              withHeightBlock:(RZCellSizeManagerHeightBlock)heightBlock;
-
-/**
- *  Registers a cell by its class name, for a particular reuse identifier.
- *  The height of the cell will be computed externally using using a height block.
- *
- *  This flavor of registration is useful for registering a table view cell whose height can easily be computed
- *  externally (not using autolayout).
- *
- *  @param cellClass          Name of the cell class. Must not be nil.
- *  @param nibNameOrNil       Name of the nib file representing the cell, or nil to use the default name (or if there is no nib)
- *  @param reuseIdentifier    Reuse identifier of the cell, or nil if all cells will have the same identifier
- *  @param heightBlock        Block which is passed a pointer to the cell as well as the model object for the cell, if applicable.
- *                            This block should compute the height of the cell and return it. Must not be nil.
- */
-- (void)registerCellClassName:(NSString *)cellClass
-                 withNibNamed:(NSString *)nibNameOrNil
-           forReuseIdentifier:(NSString *)reuseIdentifier
-              withHeightBlock:(RZCellSizeManagerHeightBlock)heightBlock;
 
 /**
  *  Registers a cell by its class name, for a particular data object class.
@@ -193,28 +156,8 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
  *   @warning If you have labels that you want to have a dynamic height you must make sure that the preferredMaxLayoutWidth is correct.
  */
 @property (nonatomic, assign) CGFloat overideWidth;
- 
 
-/**
- *  Return the height for a table view cell at a particular index path, for a particular object.
- *
- *  @param object    Optional model object which will be used to configure the cell.
- *  @param indexPath Index path of the cell.
- *
- *  @return Height of the cell.
- */
-- (CGFloat)cellHeightForObject:(id)object indexPath:(NSIndexPath *)indexPath;
-
-/**
- *  Return the height for a table view cell at a particular index path, for a particular object and reuse identifier.
- *
- *  @param object          Optional model object which will be used to configure the cell.
- *  @param indexPath       Index path of the cell.
- *  @param reuseIdentifier Reuse identifier of the cell.
- *
- *  @return Height of the cell.
- */
-- (CGFloat)cellHeightForObject:(id)object indexPath:(NSIndexPath *)indexPath cellReuseIdentifier:(NSString *)reuseIdentifier;
+@property (nonatomic, assign) BOOL shouldKeySizeCacheOffObjects;
 
 /**
  *  Return the size for a collection view cell at a particular index path, for a particular object.

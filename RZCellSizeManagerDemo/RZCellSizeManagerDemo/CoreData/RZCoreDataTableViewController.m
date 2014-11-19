@@ -137,7 +137,7 @@
     
     // Since we are using a tableView we are using the cellHeightForObject:indexPath: method.
     //  It uses the indexPath as the key for cacheing so it is important to pass in the correct one.
-    return [self.sizeManager cellHeightForObject:object indexPath:indexPath];
+    return [self.sizeManager cellSizeForObject:object indexPath:indexPath].height;
 }
 
 // If you have very complex cells or a large number implementing this method speeds up initial load time.
