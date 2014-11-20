@@ -29,23 +29,18 @@
 
 #import "RZCellSizeManager.h"
 
-#define kRZCellSizeManagerCellKey               @"RZCellSizeManagerCellKey"
-#define kRZCellSizeManagerObjectClassKey        @"RZCellSizeManagerObjectClassKey"
-#define kRZCellSizeManagerConfigurationBlockKey @"RZCellSizeManagerConfigurationBlockKey"
-
 #define kRZCellSizeManagerDefaultCellHeightPadding  1.0f
+
 /**
  * UICollectionViewCell (AutoLayout)
  *
  * Helper methods for a UICollectionViewCell
  **/
-
 @interface UIView (AutoLayout)
 
 - (void)moveConstraintsToContentView;
 
 @end
-
 
 @implementation UIView (AutoLayout)
 
@@ -53,16 +48,14 @@
 // Note that there may be performance issues with this in some cases.  Should only call in on Awake from nib or initialization and not on reuse.
 - (void)moveConstraintsToContentView
 {
-    if ([self isKindOfClass:[UICollectionViewCell class]] || [self isKindOfClass:[UITableViewCell class]])
-    {
-        for(NSLayoutConstraint *cellConstraint in self.constraints){
+    if ( [self isKindOfClass:[UICollectionViewCell class]] || [self isKindOfClass:[UITableViewCell class]] ) {
+        for( NSLayoutConstraint *cellConstraint in self.constraints ) {
             [self removeConstraint:cellConstraint];
             id firstItem = cellConstraint.firstItem == self ? self.contentView : cellConstraint.firstItem;
             id secondItem = cellConstraint.secondItem == self ? self.contentView : cellConstraint.secondItem;
             //There is a case where we can grab the iOS7 UITableViewCellScrollView which will break, this check is for that.
-            if (([[firstItem superview] isEqual:self] && ![firstItem isEqual:self.contentView]) ||
-                ([[secondItem superview] isEqual:self] && ![secondItem isEqual:self.contentView]))
-            {
+            if ( ([[firstItem superview] isEqual:self] && ![firstItem isEqual:self.contentView]) ||
+                ([[secondItem superview] isEqual:self] && ![secondItem isEqual:self.contentView]) ) {
                 continue;
             }
             
@@ -92,6 +85,7 @@
  *  RZCellSizeManagerCellConfiguration
  **/
 @interface RZCellSizeManagerCellConfiguration : NSObject
+
 @property (nonatomic, strong) id cell;
 @property (nonatomic, copy) RZCellSizeManagerConfigBlock configurationBlock;
 @property (nonatomic, copy) RZCellSizeManagerSizeBlock sizeBlock;
@@ -156,8 +150,7 @@
 @property (nonatomic, strong) NSMutableArray *configurationList;
 @property (nonatomic, strong) NSCache *cellSizeCache;
 
-@property (nonatomic, copy) RZCellSizeManagerConfigBlock configurationBlock;
-@property (nonatomic, copy) RZCellSizeManagerSizeBlock sizeBlock;
+@property (nonatomic, assign) BOOL shouldKeySizeCacheOffObjects;
 
 @end
 
@@ -184,8 +177,7 @@
 
 - (void)setOverideWidth:(CGFloat)overideWidth
 {
-    if (overideWidth != _overideWidth)
-    {
+    if ( overideWidth != _overideWidth ) {
         _overideWidth = overideWidth;
         [self.configurationList enumerateObjectsUsingBlock:^(RZCellSizeManagerCellConfiguration *obj, NSUInteger idx, BOOL *stop) {
             id cell = obj.cell;
@@ -212,7 +204,7 @@
     
     id cell = [self configureOffScreenCellWithCellClassName:cellClass nibName:nibNameOrNil];
     
-    RZCellSizeManagerCellConfiguration* configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell cellClass:cellClass reuseIdentifier:nil objectClass:objectClass configurationBlock:configurationBlock];
+    RZCellSizeManagerCellConfiguration *configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell cellClass:cellClass reuseIdentifier:nil objectClass:objectClass configurationBlock:configurationBlock];
 
     [self.configurationList addObject:configuration];
 }
@@ -227,7 +219,7 @@
     
     id cell = [self configureOffScreenCellWithCellClassName:cellClass nibName:nibNameOrNil];
     
-    RZCellSizeManagerCellConfiguration* configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell cellClass:cellClass reuseIdentifier:reuseIdentifier objectClass:nil configurationBlock:configurationBlock];
+    RZCellSizeManagerCellConfiguration *configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell cellClass:cellClass reuseIdentifier:reuseIdentifier objectClass:nil configurationBlock:configurationBlock];
 
     [self.configurationList addObject:configuration];
 }
@@ -242,7 +234,7 @@
     NSParameterAssert(sizeBlock);
     
     id cell = [self configureOffScreenCellWithCellClassName:cellClass nibName:nibNameOrNil];
-    RZCellSizeManagerCellConfiguration* configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell cellClass:cellClass reuseIdentifier:nil objectClass:objectClass sizeBlock:sizeBlock];
+    RZCellSizeManagerCellConfiguration *configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell cellClass:cellClass reuseIdentifier:nil objectClass:objectClass sizeBlock:sizeBlock];
 
     [self.configurationList addObject:configuration];
 }
@@ -256,7 +248,7 @@
     NSParameterAssert(sizeBlock);
     
     id cell = [self configureOffScreenCellWithCellClassName:cellClass nibName:nibNameOrNil];
-    RZCellSizeManagerCellConfiguration* configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell cellClass:cellClass reuseIdentifier:reuseIdentifier objectClass:nil sizeBlock:sizeBlock];
+    RZCellSizeManagerCellConfiguration *configuration = [RZCellSizeManagerCellConfiguration cellConfigurationWithCell:cell cellClass:cellClass reuseIdentifier:reuseIdentifier objectClass:nil sizeBlock:sizeBlock];
 
     [self.configurationList addObject:configuration];
 }
@@ -295,13 +287,12 @@
     NSAssert( !(self.shouldKeySizeCacheOffObjects && object == nil) , @"An Object is required when using Object based Size Cacheing.  See @property shouldKeySizeCacheOffObjects" );
 
     id obj = nil;
-    if ( self.shouldKeySizeCacheOffObjects ) {
-        obj = [self.cellSizeCache objectForKey:object];
+    if ( self.shouldKeySizeCacheOffObjects && [object isKindOfClass:[NSObject class]] ) {
+        obj = [self.cellSizeCache objectForKey:@(((NSObject *)object).hash)];
     }
     else {
         obj = [self.cellSizeCache objectForKey:indexPath];
     }
-//    id obj = [self.cellSizeCache objectForKey:indexPath];
     CGSize size = CGSizeZero;
     if ( obj == nil ) {
         RZCellSizeManagerCellConfiguration* configuration = [self configurationForObject:object reuseIdentifier:reuseIdentifier];
@@ -324,7 +315,7 @@
         if ( validSize ) {
             id key = indexPath;
             if ( self.shouldKeySizeCacheOffObjects ) {
-                key = object;
+                key = @(((NSObject *)object).hash);
             }
             [self.cellSizeCache setObject:[NSValue valueWithCGSize:size] forKey:key];
         }
@@ -356,12 +347,10 @@
         UINib* nib = [UINib nibWithNibName:nibName bundle:nil];
         
         // Try and instantiate the cell from the nib.  If not we shall just call init on it.
-        @try
-        {
+        @try {
             cell = [[nib instantiateWithOwner:nil options:nil] objectAtIndex:0];
         }
-        @catch (NSException *exception)
-        {
+        @catch (NSException *exception) {
             // There is a chance that we want to just create it with init.
             cell = [[NSClassFromString(className) alloc] init];
         }
@@ -392,7 +381,7 @@
 - (RZCellSizeManagerCellConfiguration *)configurationForObject:(id)object reuseIdentifier:(NSString *)reuseIdentifier
 {
     __block RZCellSizeManagerCellConfiguration* configuration = nil;
-    if (reuseIdentifier) {
+    if ( reuseIdentifier ) {
         [self.configurationList enumerateObjectsUsingBlock:^(RZCellSizeManagerCellConfiguration *obj, NSUInteger idx, BOOL *stop) {
             if ( [reuseIdentifier isEqualToString:obj.reuseIdentifier] ) {
                 configuration = obj;
@@ -400,7 +389,8 @@
             }
         }];
     }
-    else {
+
+    if ( !configuration ) {
         [self.configurationList enumerateObjectsUsingBlock:^(RZCellSizeManagerCellConfiguration *obj, NSUInteger idx, BOOL *stop) {
             if ( [object isKindOfClass:obj.objectClass] ) {
                 configuration = obj;
@@ -415,6 +405,31 @@
     
     return configuration;
 
+}
+
+@end
+
+@implementation RZCellSizeManager (ObjectBasedCacheing)
+
+- (CGSize) cellSizeForObject:(id)object
+{
+    return [self cellSizeForObject:object indexPath:nil cellReuseIdentifier:nil];
+}
+
+- (void)invalidateCellSizeForObject:(NSObject *)object
+{
+    if ( object != nil && self.shouldKeySizeCacheOffObjects ) {
+        [self.cellSizeCache removeObjectForKey:@(object.hash)];
+    }
+}
+
+- (void)invalidateCellSizeForObjects:(NSArray *)objects
+{
+    if ( objects != nil && self.shouldKeySizeCacheOffObjects ) {
+        [objects enumerateObjectsUsingBlock:^(NSObject *obj, NSUInteger idx, BOOL *stop) {
+            [self.cellSizeCache removeObjectForKey:@(obj.hash)];
+        }];
+    }
 }
 
 @end

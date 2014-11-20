@@ -39,17 +39,32 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
  **/
 @interface RZCellSizeManager : NSObject
 
+/**
+ *  Extra padding of the cell height. This defaults to 1 px.
+ *
+ *  This is necessary because a UITableViewCell uses a seperator as part of its height so it will cut off the content.
+ *  You should set this to 0 if you don't have cell dividers, or set it to whatever you divider is set too.
+ */
+@property (nonatomic, assign) CGFloat cellHeightPadding;
+
+/**
+ *   This is used to override a static width for a cell.
+ *   A possible use case would be having a cell created for iPhone at 320.0 pts wide work on an iPad with a width of 768.0 pts.
+ *   Setting this automatically invalidates the cache.
+ *   @warning If you have labels that you want to have a dynamic height you must make sure that the preferredMaxLayoutWidth is correct.
+ */
+@property (nonatomic, assign) CGFloat overideWidth;
 
 /**
  *  Registers a cell by its class name for a particular data object class. 
  *  The size/height will be computed automatically by autolayout after the cell is configured by a required block.
  *
  *  This flavor of registration is useful for registering a cell that represents an instance of 
- *  a model object if the cell's size/height can be determined by autolayout and the data in the object.
+ *  a model object if the cell's size can be determined by autolayout and the data in the object.
  *
  *  @warning    The configuration of the cell within the block should be simple and efficient.
- *              Cells with lots of autolayout constraints may slow down the responseiveness of the UI during size/height computation.
- *              If the cell configuration is complex, it may be better to use a size/height block registration instead.
+ *              Cells with lots of autolayout constraints may slow down the responseiveness of the UI during size computation.
+ *              If the cell configuration is complex, it may be better to use a size block registration instead.
  *
  *  @param cellClass          Name of the cell class. Must not be nil.
  *  @param nibNameOrNil       Name of the nib file representing the cell, or nil to use the default name (or if there is no nib)
@@ -68,11 +83,11 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
  *  The size/height of the cell will be computed using a configuration block.
  *
  *  This flavor of registration is useful for registering a cell that represents an instance of
- *  a model object if the cell's size/height can be determined by autolayout and the data in the object.
+ *  a model object if the cell's size can be determined by autolayout and the data in the object.
  *
  *  @warning    The configuration of the cell within the block should be simple and efficient.
- *              Cells with lots of autolayout constraints may slow down the responseiveness of the UI during size/height computation.
- *              If the cell configuration is complex, it may be better to use a size/height block registration instead.
+ *              Cells with lots of autolayout constraints may slow down the responseiveness of the UI during size computation.
+ *              If the cell configuration is complex, it may be better to use a size block registration instead.
  *
  *  @param cellClass          Name of the cell class. Must not be nil.
  *  @param nibNameOrNil       Name of the nib file representing the cell, or nil to use the default name (or if there is no nib)
@@ -134,30 +149,11 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
 - (void)invalidateCellSizeAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
- *  Invalidate the cached sizes for multiple cells.
+ *  Invalidate the cached sizes for multiple Index Paths.
  *
  *  @param indexPaths An array of NSIndexPaths of the cells for which the size will be invalidated. Must not be nil.
  */
 - (void)invalidateCellSizesAtIndexPaths:(NSArray *)indexPaths;
-
-
-/**
- *  Extra padding of the cell height. This defaults to 1 px.  
- *
- *  This is necessary because a UITableViewCell uses a seperator as part of its height so it will cut off the content.
- *  You should set this to 0 if you don't have cell dividers, or set it to whatever you divider is set too.
- */
-@property (nonatomic, assign) CGFloat cellHeightPadding;
-
-/**
- *   This is used to override a static width for a cell.  
- *   A possible use case would be having a cell created for iPhone at 320.0 pts wide work on an iPad with a width of 768.0 pts.
- *   Setting this automatically invalidates the cache.
- *   @warning If you have labels that you want to have a dynamic height you must make sure that the preferredMaxLayoutWidth is correct.
- */
-@property (nonatomic, assign) CGFloat overideWidth;
-
-@property (nonatomic, assign) BOOL shouldKeySizeCacheOffObjects;
 
 /**
  *  Return the size for a collection view cell at a particular index path, for a particular object.
@@ -179,5 +175,45 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
  *  @return Size of the cell.
  */
 - (CGSize)cellSizeForObject:(id)object indexPath:(NSIndexPath *)indexPath cellReuseIdentifier:(NSString *)reuseIdentifier;
+
+@end
+
+/**
+ *  Used for Object based Cacheing of Sizes as opposed to IndexPath based cache system.
+ */
+@interface RZCellSizeManager (ObjectBasedCacheing)
+
+/**
+ *  Set this to use Object based cacheing instead of IndexPath based.  Note that it is all or nothing.  You must also use
+ *  the invalidation methods for objects and you must pass in an object for all size methods.
+ *
+ *  All objects must have a root class of NSObject and adhear to the `hash` property.  This is used to compare objects.
+ *
+ *  @note If you have identical objects that are loaded into different cell types, this method will not work.
+ */
+@property (nonatomic, assign) BOOL shouldKeySizeCacheOffObjects;
+
+/**
+ *  Return the size for a cell for a paticular object.  Must have set `shouldKeySizeCacheOffObjects` to YES.
+ *
+ *  @param object The object to key the cache off of.
+ *
+ *  @return Size of the cell
+ */
+- (CGSize) cellSizeForObject:(id)object;
+
+/**
+ *  Invalidate the cached size for a paticular object.
+ *
+ *  @param object the object that you want the size to be invalidated for.
+ */
+- (void)invalidateCellSizeForObject:(NSObject *)object;
+
+/**
+ *  Invalidates the cached sizes for multiple objects.
+ *
+ *  @param objects An array of NSObject's for which the size will be invalidated.
+ */
+- (void)invalidateCellSizeForObjects:(NSArray *)objects;
 
 @end
