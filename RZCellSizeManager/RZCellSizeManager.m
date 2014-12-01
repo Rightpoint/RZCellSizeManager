@@ -364,7 +364,9 @@
         @finally {
             
         }
-        [cell moveConstraintsToContentView];
+        if ( self.shouldTransferConstraintsToContentView ) {
+            [cell moveConstraintsToContentView];
+        }
     }
 
     if ( self.overideWidth != 0 ) {

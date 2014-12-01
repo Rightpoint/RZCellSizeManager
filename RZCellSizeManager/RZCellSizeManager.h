@@ -48,6 +48,14 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
 @property (nonatomic, assign) CGFloat cellHeightPadding;
 
 /**
+ *  Used to specify if all constraints on a cell should be transfered to the cells contentView.
+ *
+ *  This is helpful when working with older cell xib's.
+ *  Default is NO.
+ */
+@property (assign, nonatomic) BOOL shouldTransferConstraintsToContentView;
+
+/**
  *   This is used to override a static width for a cell.
  *   A possible use case would be having a cell created for iPhone at 320.0 pts wide work on an iPad with a width of 768.0 pts.
  *   Setting this automatically invalidates the cache.
