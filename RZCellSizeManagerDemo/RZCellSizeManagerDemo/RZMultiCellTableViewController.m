@@ -72,7 +72,7 @@
     //  expecially applies if you are loading images or anything of that manor.
     
     self.sizeManager = [[RZCellSizeManager alloc] init];
-
+    self.sizeManager.shouldKeySizeCacheOffObjects = YES;
     [self.sizeManager registerCellClassName:@"RZTableViewCell"
                                withNibNamed:nil
                              forObjectClass:[RZCellData class]

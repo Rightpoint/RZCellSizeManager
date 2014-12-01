@@ -191,6 +191,13 @@
     }
 }
 
+- (void)setShouldKeySizeCacheOffObjects:(BOOL)shouldKeySizeCacheOffObjects
+{
+    if ( shouldKeySizeCacheOffObjects != _shouldKeySizeCacheOffObjects ) {
+        _shouldKeySizeCacheOffObjects = shouldKeySizeCacheOffObjects;
+        [self invalidateCellSizeCache];
+    }
+}
 #pragma mark - Registration methods
 
 
@@ -359,8 +366,7 @@
         }
         [cell moveConstraintsToContentView];
     }
-    
-    
+
     if ( self.overideWidth != 0 ) {
         CGRect overideFrame = [cell frame];
         overideFrame.size.width = self.overideWidth;
