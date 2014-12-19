@@ -126,6 +126,20 @@ If you are using RZCellSizeManager and you data changes you will need to invalid
 - (void)invalidateCellHeightsAtIndexPaths:(NSArray *)indexPaths;
 ```
 
+Trait Collections
+-----------------
+
+If your cells depend on `UITraitCollection` to size themselves correctly, set the `traitCollection` property of `RZCellSizeManager`. You should generally do this from inside the `-traitCollectionDidChange:` method of a `UIView` or `UIViewController` subclass. Setting this property automatically invalidates the cell size cache, but you are responsible for reloading cells or invalidating collection view layouts as needed.
+
+```objective-c
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+    [super traitCollectionDidChange:previousTraitCollection];
+    self.sizeManager.traitCollection = self.traitCollection.
+    // If your table or collection view has already been rendered, reload data or invalidate the layout here
+}
+```
+
 Next Steps
 ==========
 
