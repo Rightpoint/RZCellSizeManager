@@ -472,6 +472,14 @@
                 configuration.configurationBlock(configuration.cell, object);
                 UIView* contentView = [configuration.cell contentView];
                 size = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+
+                // If a cell has an internal width or height constraint (for example, the kind used to auto-size cells
+                // when you want a fixed width), it will conflict with the cell's native size on the next layout pass
+                // unless we update the cell’s frame to match the size we were just given.
+                CGRect cellFrame = CGRectMake(0.0f, 0.0f, size.width, size.height);
+                [configuration.cell setFrame:cellFrame];
+                [[configuration.cell contentView] setFrame:cellFrame];
+
                 validSize = YES;
                 
             }
@@ -604,7 +612,18 @@
             configuration.configurationBlock(configuration.cell, object);
             [configuration.cell layoutIfNeeded];
             UIView* contentView = [configuration.cell contentView];
-            height = @([contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + self.cellHeightPadding);
+
+            CGSize size = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            size.height += self.cellHeightPadding;
+
+            // If a cell has an internal width or height constraint (for example, the kind used to auto-size cells
+            // when you want a fixed width), it will conflict with the cell's native size on the next layout pass
+            // unless we update the cell’s frame to match the size we were just given.
+            CGRect cellFrame = CGRectMake(0.0f, 0.0f, size.width, size.height);
+            [configuration.cell setFrame:cellFrame];
+            [[configuration.cell contentView] setFrame:cellFrame];
+
+            height = @(size.height);
         }
         else if (configuration.heightBlock)
         {
