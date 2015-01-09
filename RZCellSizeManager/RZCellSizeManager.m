@@ -529,21 +529,18 @@
     if (className)
     {
         NSString *nibName = nibNameOrNil != nil ? nibNameOrNil : className;
-        UINib* nib = [UINib nibWithNibName:nibName bundle:nil];
+        BOOL nibExists = ([[NSBundle mainBundle] pathForResource:nibName ofType:@"nib"] != nil);
+        UINib *nib = [UINib nibWithNibName:nibName bundle:nil];
         
         // Try and instantiate the cell from the nib.  If not we shall just call init on it.
-        @try
-        {
+        if ( nibExists ) {
             cell = [[nib instantiateWithOwner:nil options:nil] objectAtIndex:0];
         }
-        @catch (NSException *exception)
-        {
+        else {
             // There is a chance that we want to just create it with init.
             cell = [[NSClassFromString(className) alloc] init];
         }
-        @finally {
-            
-        }
+
         [cell moveConstraintsToContentView];
     }
     
