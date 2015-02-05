@@ -12,8 +12,9 @@
 @class RZEntry;
 @interface RZTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) RZCellData* cellData;
-@property (nonatomic, strong) RZEntry* cellEntry;
+@property (nonatomic, weak) RZCellData* cellData;
+@property (nonatomic, weak) RZEntry* cellEntry;
+
 + (NSString *)reuseIdentifier;
 
 + (UINib *)reuseNib;

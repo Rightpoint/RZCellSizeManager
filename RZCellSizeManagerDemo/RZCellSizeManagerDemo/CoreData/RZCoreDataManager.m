@@ -151,7 +151,7 @@
             NSArray* objs = self.entryResultsController.fetchedObjects;
             if (objs.count > 0)
             {
-                int index = arc4random_uniform(objs.count);
+                int index = arc4random_uniform((int)objs.count);
                 RZEntry* entry = [self.entryResultsController.fetchedObjects objectAtIndex:index];
                 [self.managedObjectContext deleteObject:entry];
                 [self.managedObjectContext save:nil];
@@ -163,7 +163,7 @@
             NSArray* objs = self.entryResultsController.fetchedObjects;
             if (objs.count > 0)
             {
-                int index = arc4random_uniform(objs.count);
+                int index = arc4random_uniform((int)objs.count);
                 RZEntry* entry = [self.entryResultsController.fetchedObjects objectAtIndex:index];
                 entry.title = [NSString randomStringOfMaxLength:titleMaxLength];
                 entry.subTitle = [NSString randomStringOfMaxLength:subtitleMaxLength];

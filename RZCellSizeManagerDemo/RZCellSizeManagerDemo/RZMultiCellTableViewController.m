@@ -102,7 +102,7 @@
 - (void)configureTableView
 {
     [self.tableView registerNib:[RZTableViewCell reuseNib] forCellReuseIdentifier:[RZTableViewCell reuseIdentifier]];
-    [self.tableView registerNib:[RZSecondTableViewCell reuseNib] forCellReuseIdentifier:[RZSecondTableViewCell reuseIdentifier]];
+    [self.tableView registerClass:[RZSecondTableViewCell class] forCellReuseIdentifier:[RZSecondTableViewCell reuseIdentifier]];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonItemStyleDone target:self action:@selector(reloadPressed)]];
 
 }
