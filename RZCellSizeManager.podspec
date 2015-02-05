@@ -29,9 +29,6 @@ Pod::Spec.new do |s|
     ss.dependency 'RZCellSizeManager/Core'
     ss.dependency 'RZCollectionList', '~> 0.6'
     ss.source_files = 'RZCellSizeManagerExtensions/*+RZCollectionList.{h,m}'
-  end
-  
-  s.subspec 'RZCollectionAutoLayoutExtensions' do |ss|
     ss.dependency 'RZCellSizeManager/Core'
     ss.source_files = 'RZCellSizeManagerExtensions/RZAutoLayoutLabel.{h,m}'
   end
