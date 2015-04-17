@@ -91,8 +91,7 @@
 // Note that there may be performance issues with this in some cases.  Should only call in on Awake from nib or initialization and not on reuse.
 - (void)moveConstraintsToContentView
 {
-    if ([self isKindOfClass:[UICollectionViewCell class]] || [self isKindOfClass:[UITableViewCell class]])
-    {
+    if ( [self isKindOfClass:[UICollectionViewCell class]] || [self isKindOfClass:[UITableViewCell class]] || [self isKindOfClass:[UITableViewHeaderFooterView class]] ) {
         for(NSLayoutConstraint *cellConstraint in self.constraints){
             [self removeConstraint:cellConstraint];
             id firstItem = cellConstraint.firstItem == self ? self.contentView : cellConstraint.firstItem;
@@ -119,7 +118,7 @@
 
 - (UIView *)contentView
 {
-    // We know we are a collectionview cell or a tableview cell so this is safe.
+    // We know we are a UICollectionViewCell, UITableViewCell, or UITableViewHeaderFooterView, so this is safe.
     return [(UITableViewCell *)self contentView];
 }
 
