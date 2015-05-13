@@ -193,7 +193,14 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
  *   @warning If you have labels that you want to have a dynamic height you must make sure that the preferredMaxLayoutWidth is correct.
  */
 @property (nonatomic, assign) CGFloat overideWidth;
- 
+
+/**
+ *  A trait collection to be applied to cells before they are sized using Auto Layout.
+ *  If you do not set this property, cells will be sized using the implicit “Any, Any” trait collection.
+ *  Setting this automatically invalidates the cache.
+ *  Defaults to @c nil.
+ */
+@property (strong, nonatomic) UITraitCollection *traitCollection;
 
 /**
  *  Return the height for a table view cell at a particular index path, for a particular object.

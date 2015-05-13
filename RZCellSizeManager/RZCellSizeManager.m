@@ -46,6 +46,44 @@
 
 @end
 
+/**
+ *  A @c UIWindow subclass with a settable trait collection.
+ */
+
+@interface SettableTraitCollectionWindow : UIWindow
+
+/**
+ *  A settable trait collection. We use a custom name, instead of just @c traitCollection, to prevent potential future collisions.
+ */
+@property (strong, nonatomic) UITraitCollection *settableTraitCollection;
+
+@end
+
+@implementation SettableTraitCollectionWindow
+
+- (void)setSettableTraitCollection:(UITraitCollection *)settableTraitCollection
+{
+    if ( _settableTraitCollection != settableTraitCollection ) {
+
+        // Only if trait collection is available (iOS 8+)
+        if ( [UITraitCollection class] ) {
+            UITraitCollection *oldTraitCollection = _settableTraitCollection;
+            _settableTraitCollection = settableTraitCollection;
+
+            // Only if trait collection is available (iOS 8+)
+            if ( [super respondsToSelector:@selector(traitCollectionDidChange:)] ) {
+                [super traitCollectionDidChange:oldTraitCollection];
+            }
+        }
+    }
+}
+
+- (UITraitCollection *)traitCollection
+{
+    return self.settableTraitCollection;
+}
+
+@end
 
 @implementation UIView (AutoLayout)
 
@@ -159,7 +197,7 @@
 
 
 /**
- * RZCellHeightManager
+ * RZCellSizeManager
  **/
 
 @interface RZCellSizeManager ()
@@ -170,6 +208,7 @@
 @property (nonatomic, strong) NSString* cellNibName;
 @property (nonatomic, strong) NSCache* cellSizeCache;
 
+@property (nonatomic, strong) SettableTraitCollectionWindow *settableTraitCollectionWindow;
 
 @property (nonatomic, assign) BOOL isUsingObjectTypesForLookup;
 
@@ -213,6 +252,35 @@
             [cell setNeedsLayout];
             [cell layoutIfNeeded];
         }];
+        [self invalidateCellSizeCache];
+    }
+}
+
+- (void)setTraitCollection:(UITraitCollection *)traitCollection
+{
+    if ( _traitCollection != traitCollection ) {
+        _traitCollection = traitCollection;
+
+        // If the trait collection is nil, or if its size classes, interface idiom, and scale are unspecified,
+        // tear down the window so we don’t waste time adding cells to a window
+        // whose trait collection won’t affect the cell’s layout.
+        BOOL traitCollectionUnspecified = (_traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassUnspecified
+                                           && _traitCollection.verticalSizeClass == UIUserInterfaceSizeClassUnspecified
+                                           && _traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomUnspecified
+                                           && _traitCollection.displayScale == 0.0);
+        
+        if ( traitCollectionUnspecified ) {
+            [self.settableTraitCollectionWindow.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            self.settableTraitCollectionWindow = nil;
+        }
+        else {
+            // If the window is nil, this is a no-op, which is fine, because if
+            // and when the window is created, the trait collection will get set.
+            self.settableTraitCollectionWindow.settableTraitCollection = traitCollection;
+        }
+
+        // This is an over-cautious assumption. Trait collection changes do not necessarily mean that the sizes are invalidated.
+        // In future, we could provide more control over cell size cache invalidation.
         [self invalidateCellSizeCache];
     }
 }
@@ -372,6 +440,17 @@
     return [self cellSizeForObject:object indexPath:indexPath cellReuseIdentifier:nil];
 }
 
+- (void)addCellToWindowIfNeeded:(UIView *)cell
+{
+    if ( self.traitCollection && !cell.superview ) {
+        if ( !self.settableTraitCollectionWindow ) {
+            self.settableTraitCollectionWindow = [[SettableTraitCollectionWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+            self.settableTraitCollectionWindow.settableTraitCollection = self.traitCollection;
+        }
+        [self.settableTraitCollectionWindow addSubview:cell];
+    }
+}
+
 - (CGSize)cellSizeForObject:(id)object indexPath:(NSIndexPath *)indexPath cellReuseIdentifier:(NSString *)reuseIdentifier
 {
     NSParameterAssert(indexPath);
@@ -387,10 +466,20 @@
         {
             if (configuration.configurationBlock)
             {
+                [self addCellToWindowIfNeeded:configuration.cell];
+
                 [configuration.cell prepareForReuse];
                 configuration.configurationBlock(configuration.cell, object);
                 UIView* contentView = [configuration.cell contentView];
                 size = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+
+                // If a cell has an internal width or height constraint (for example, the kind used to auto-size cells
+                // when you want a fixed width), it will conflict with the cell's native size on the next layout pass
+                // unless we update the cell’s frame to match the size we were just given.
+                CGRect cellFrame = CGRectMake(0.0f, 0.0f, size.width, size.height);
+                [configuration.cell setFrame:cellFrame];
+                [[configuration.cell contentView] setFrame:cellFrame];
+
                 validSize = YES;
                 
             }
@@ -514,11 +603,24 @@
     {
         if (configuration.configurationBlock)
         {
+            [self addCellToWindowIfNeeded:configuration.cell];
+
             [configuration.cell prepareForReuse];
             configuration.configurationBlock(configuration.cell, object);
             [configuration.cell layoutIfNeeded];
             UIView* contentView = [configuration.cell contentView];
-            height = @([contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + self.cellHeightPadding);
+
+            CGSize size = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            size.height += self.cellHeightPadding;
+
+            // If a cell has an internal width or height constraint (for example, the kind used to auto-size cells
+            // when you want a fixed width), it will conflict with the cell's native size on the next layout pass
+            // unless we update the cell’s frame to match the size we were just given.
+            CGRect cellFrame = CGRectMake(0.0f, 0.0f, size.width, size.height);
+            [configuration.cell setFrame:cellFrame];
+            [[configuration.cell contentView] setFrame:cellFrame];
+
+            height = @(size.height);
         }
         else if (configuration.heightBlock)
         {
