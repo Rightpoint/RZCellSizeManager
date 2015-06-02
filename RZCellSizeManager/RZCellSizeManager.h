@@ -187,10 +187,10 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
 @property (nonatomic, assign) CGFloat cellHeightPadding;
 
 /**
- *   This is used to override a static width for a cell.  
- *   A possible use case would be having a cell created for iPhone at 320.0 pts wide work on an iPad with a width of 768.0 pts.
- *   Setting this automatically invalidates the cache.
- *   @warning If you have labels that you want to have a dynamic height you must make sure that the preferredMaxLayoutWidth is correct.
+ *   If non-zero, this is used as a fixed width when measuring cells. Use this for table view cells,
+ *   or collection view cells that arranged in one or more columns of the same width.
+ *   @note Setting this property also invalidates the cell size cache.
+ *   @warning Pre-iOS 8, if you have labels that you want to have a dynamic height, you must make sure that the preferredMaxLayoutWidth is correct.
  */
 @property (nonatomic, assign) CGFloat overideWidth;
 
