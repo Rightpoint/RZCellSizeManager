@@ -239,19 +239,12 @@
 
 #pragma mark - Custom Setters
 
-- (void)setOverideWidth:(CGFloat)overideWidth
+- (void)setOverrideWidth:(CGFloat)overrideWidth
 {
-    if (overideWidth != _overideWidth)
+    if (overrideWidth != _overrideWidth)
     {
-        _overideWidth = overideWidth;
-        [self.cellConfigurations enumerateKeysAndObjectsUsingBlock:^(id key, RZCellSizeManagerCellConfiguration *obj, BOOL *stop) {
-            id cell = obj.cell;
-            CGRect overideFrame = [cell frame];
-            overideFrame.size.width = overideWidth;
-            [cell setFrame:overideFrame];
-            [cell setNeedsLayout];
-            [cell layoutIfNeeded];
-        }];
+        _overrideWidth = overrideWidth;
+
         [self invalidateCellSizeCache];
     }
 }
@@ -471,7 +464,14 @@
                 [configuration.cell prepareForReuse];
                 configuration.configurationBlock(configuration.cell, object);
                 UIView* contentView = [configuration.cell contentView];
-                size = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+                CGSize size;
+                if ( self.overrideWidth == 0.0f ) {
+                    size = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+                }
+                else {
+                    CGSize fittingSize = CGSizeMake(self.overrideWidth, UILayoutFittingCompressedSize.height);
+                    size = [contentView systemLayoutSizeFittingSize:fittingSize withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
+                }
 
                 // If a cell has an internal width or height constraint (for example, the kind used to auto-size cells
                 // when you want a fixed width), it will conflict with the cell's native size on the next layout pass
@@ -544,16 +544,6 @@
         [cell moveConstraintsToContentView];
     }
     
-    
-    if (self.overideWidth != 0)
-    {
-        CGRect overideFrame = [cell frame];
-        overideFrame.size.width = self.overideWidth;
-        [cell setFrame:overideFrame];
-        [cell setNeedsLayout];
-        [cell layoutIfNeeded];
-    }
-    
     NSAssert(cell != nil, @"Cell not created successfully.  Make sure there is a cell with your class name in your project:%@",className);
     return cell;
 }
@@ -610,7 +600,14 @@
             [configuration.cell layoutIfNeeded];
             UIView* contentView = [configuration.cell contentView];
 
-            CGSize size = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            CGSize size;
+            if ( self.overrideWidth == 0.0f ) {
+                size = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            }
+            else {
+                CGSize fittingSize = CGSizeMake(self.overrideWidth, UILayoutFittingCompressedSize.height);
+                size = [contentView systemLayoutSizeFittingSize:fittingSize withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
+            }
             size.height += self.cellHeightPadding;
 
             // If a cell has an internal width or height constraint (for example, the kind used to auto-size cells
