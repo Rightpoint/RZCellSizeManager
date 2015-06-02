@@ -29,7 +29,7 @@
 #import "RZCellSizeManager+RZCollectionList.h"
 #import <objc/runtime.h>
 
-static char s_RZAutoLayoutHeightManagerToken;
+static void *s_RZAutoLayoutHeightManagerToken = &s_RZAutoLayoutHeightManagerToken;
 
 @interface RZAutoLayoutHeightManagerObserver : NSObject <RZCollectionListObserver>
 
