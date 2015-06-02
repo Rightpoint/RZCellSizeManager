@@ -239,11 +239,20 @@
 
 #pragma mark - Custom Setters
 
-- (void)setOverrideWidth:(CGFloat)overrideWidth
+- (void)setOverideWidth:(CGFloat)overideWidth
 {
-    if (overrideWidth != _overrideWidth)
+    if (overideWidth != _overideWidth)
     {
-        _overrideWidth = overrideWidth;
+        _overideWidth = overideWidth;
+
+        [self.cellConfigurations enumerateKeysAndObjectsUsingBlock:^(id key, RZCellSizeManagerCellConfiguration *obj, BOOL *stop) {
+            id cell = obj.cell;
+            CGRect overideFrame = [cell frame];
+            overideFrame.size.width = overideWidth;
+            [cell setFrame:overideFrame];
+            [cell setNeedsLayout];
+            [cell layoutIfNeeded];
+        }];
 
         [self invalidateCellSizeCache];
     }
@@ -465,11 +474,11 @@
                 configuration.configurationBlock(configuration.cell, object);
                 UIView* contentView = [configuration.cell contentView];
                 CGSize size;
-                if ( self.overrideWidth == 0.0f ) {
+                if ( self.overideWidth == 0.0f ) {
                     size = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
                 }
                 else {
-                    CGSize fittingSize = CGSizeMake(self.overrideWidth, UILayoutFittingCompressedSize.height);
+                    CGSize fittingSize = CGSizeMake(self.overideWidth, UILayoutFittingCompressedSize.height);
                     size = [contentView systemLayoutSizeFittingSize:fittingSize withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
                 }
 
@@ -542,6 +551,15 @@
         }
 
         [cell moveConstraintsToContentView];
+
+        if (self.overideWidth != 0)
+        {
+            CGRect overideFrame = [cell frame];
+            overideFrame.size.width = self.overideWidth;
+            [cell setFrame:overideFrame];
+            [cell setNeedsLayout];
+            [cell layoutIfNeeded];
+        }
     }
     
     NSAssert(cell != nil, @"Cell not created successfully.  Make sure there is a cell with your class name in your project:%@",className);
@@ -601,11 +619,11 @@
             UIView* contentView = [configuration.cell contentView];
 
             CGSize size;
-            if ( self.overrideWidth == 0.0f ) {
+            if ( self.overideWidth == 0.0f ) {
                 size = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             }
             else {
-                CGSize fittingSize = CGSizeMake(self.overrideWidth, UILayoutFittingCompressedSize.height);
+                CGSize fittingSize = CGSizeMake(self.overideWidth, UILayoutFittingCompressedSize.height);
                 size = [contentView systemLayoutSizeFittingSize:fittingSize withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
             }
             size.height += self.cellHeightPadding;

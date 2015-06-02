@@ -189,8 +189,10 @@ typedef CGSize  (^RZCellSizeManagerSizeBlock)(id cell, id object);
 /**
  *   If non-zero, this is used as a fixed width when measuring cells. Use this for table view cells,
  *   or collection view cells that arranged in one or more columns of the same width.
+ *   @note Setting this property also invalidates the cell size cache.
+ *   @warning Pre-iOS 8, if you have labels that you want to have a dynamic height, you must make sure that the preferredMaxLayoutWidth is correct.
  */
-@property (nonatomic, assign) CGFloat overrideWidth;
+@property (nonatomic, assign) CGFloat overideWidth;
 
 /**
  *  A trait collection to be applied to cells before they are sized using Auto Layout.
