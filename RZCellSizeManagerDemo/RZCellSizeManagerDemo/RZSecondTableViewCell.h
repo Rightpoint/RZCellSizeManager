@@ -12,11 +12,9 @@
 
 @interface RZSecondTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) RZOtherCellData* otherCellData;
+@property (nonatomic, weak) RZOtherCellData* otherCellData;
 
 + (NSString *)reuseIdentifier;
-
-+ (UINib *)reuseNib;
 
 + (CGFloat)estimatedCellHeight;
 

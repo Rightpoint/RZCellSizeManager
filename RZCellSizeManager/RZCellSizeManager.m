@@ -351,19 +351,17 @@
     id cell = nil;
     if ( className ) {
         NSString *nibName = nibNameOrNil ?: className;
-        UINib* nib = [UINib nibWithNibName:nibName bundle:nil];
-        
+        BOOL nibExists = ([[NSBundle mainBundle] pathForResource:nibName ofType:@"nib"] != nil);
+
         // Try and instantiate the cell from the nib.  If not we shall just call init on it.
-        @try {
+        if ( nibExists) {
+            UINib *nib = [UINib nibWithNibName:nibName bundle:nil];
             cell = [[nib instantiateWithOwner:nil options:nil] objectAtIndex:0];
         }
-        @catch (NSException *exception) {
-            // There is a chance that we want to just create it with init.
+        else {
             cell = [[NSClassFromString(className) alloc] init];
         }
-        @finally {
-            
-        }
+
         if ( self.shouldTransferConstraintsToContentView ) {
             [cell moveConstraintsToContentView];
         }
