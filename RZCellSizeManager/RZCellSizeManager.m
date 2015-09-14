@@ -286,6 +286,7 @@
         settableTraitCollectionWindow.windowLevel = -(CGFLOAT_MAX - settableTraitCollectionWindows.count); // for different window levels
         settableTraitCollectionWindow.rootViewController = [[UIViewController alloc] init];
         settableTraitCollectionWindow.hidden = NO;
+        settableTraitCollectionWindows[self.traitCollection] = settableTraitCollectionWindow;
     }
 
     return settableTraitCollectionWindow;
