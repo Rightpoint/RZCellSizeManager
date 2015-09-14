@@ -283,7 +283,7 @@
     if (settableTraitCollectionWindow == nil || [settableTraitCollectionWindow isEqual:[NSNull null]]) {
         settableTraitCollectionWindow = [[SettableTraitCollectionWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         settableTraitCollectionWindow.settableTraitCollection = self.traitCollection;
-        settableTraitCollectionWindow.windowLevel = -(CGFLOAT_MAX - settableTraitCollectionWindows.count); // for different window levels
+        settableTraitCollectionWindow.windowLevel = -CGFLOAT_MAX + settableTraitCollectionWindows.count; // for different window levels
         settableTraitCollectionWindow.rootViewController = [[UIViewController alloc] init];
         settableTraitCollectionWindow.hidden = NO;
         settableTraitCollectionWindows[self.traitCollection] = settableTraitCollectionWindow;
