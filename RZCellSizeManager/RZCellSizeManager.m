@@ -448,8 +448,11 @@
         if ( !self.settableTraitCollectionWindow ) {
             self.settableTraitCollectionWindow = [[SettableTraitCollectionWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
             self.settableTraitCollectionWindow.settableTraitCollection = self.traitCollection;
+            self.settableTraitCollectionWindow.windowLevel = -CGFLOAT_MAX;
+            self.settableTraitCollectionWindow.rootViewController = [[UIViewController alloc] init];
+            self.settableTraitCollectionWindow.hidden = NO;
         }
-        [self.settableTraitCollectionWindow addSubview:cell];
+        [self.settableTraitCollectionWindow.rootViewController.view addSubview:cell];
     }
 }
 
