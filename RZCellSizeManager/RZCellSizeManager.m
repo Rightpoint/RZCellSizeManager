@@ -208,7 +208,7 @@
 @property (nonatomic, strong) NSString* cellNibName;
 @property (nonatomic, strong) NSCache* cellSizeCache;
 
-@property (nonatomic, strong) SettableTraitCollectionWindow *settableTraitCollectionWindow;
+@property (nonatomic, strong, readonly) SettableTraitCollectionWindow *settableTraitCollectionWindow;
 
 @property (nonatomic, assign) BOOL isUsingObjectTypesForLookup;
 
@@ -260,32 +260,37 @@
 
 - (void)setTraitCollection:(UITraitCollection *)traitCollection
 {
-    if ( _traitCollection != traitCollection ) {
+    if ( ![_traitCollection isEqual:traitCollection] ) {
         _traitCollection = traitCollection;
-
-        // If the trait collection is nil, or if its size classes, interface idiom, and scale are unspecified,
-        // tear down the window so we don’t waste time adding cells to a window
-        // whose trait collection won’t affect the cell’s layout.
-        BOOL traitCollectionUnspecified = (_traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassUnspecified
-                                           && _traitCollection.verticalSizeClass == UIUserInterfaceSizeClassUnspecified
-                                           && _traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomUnspecified
-                                           && _traitCollection.displayScale == 0.0);
-        
-        if ( traitCollectionUnspecified ) {
-            [self.settableTraitCollectionWindow.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-            self.settableTraitCollectionWindow = nil;
-        }
-        else {
-            // If the window is nil, this is a no-op, which is fine, because if
-            // and when the window is created, the trait collection will get set.
-            self.settableTraitCollectionWindow.settableTraitCollection = traitCollection;
-        }
 
         // This is an over-cautious assumption. Trait collection changes do not necessarily mean that the sizes are invalidated.
         // In future, we could provide more control over cell size cache invalidation.
         [self invalidateCellSizeCache];
     }
 }
+
+#pragma mark - Getters
+
+- (SettableTraitCollectionWindow *)settableTraitCollectionWindow
+{
+    static NSMutableDictionary *settableTraitCollectionWindows = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        settableTraitCollectionWindows = [[NSMutableDictionary alloc] init];
+    });
+
+    SettableTraitCollectionWindow *settableTraitCollectionWindow = settableTraitCollectionWindows[self.traitCollection];
+    if (settableTraitCollectionWindow == nil || [settableTraitCollectionWindow isEqual:[NSNull null]]) {
+        settableTraitCollectionWindow = [[SettableTraitCollectionWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        settableTraitCollectionWindow.settableTraitCollection = self.traitCollection;
+        settableTraitCollectionWindow.windowLevel = -(CGFLOAT_MAX - settableTraitCollectionWindows.count); // for different window levels
+        settableTraitCollectionWindow.rootViewController = [[UIViewController alloc] init];
+        settableTraitCollectionWindow.hidden = NO;
+    }
+
+    return settableTraitCollectionWindow;
+}
+
 
 #pragma mark - Registration methods
 
@@ -445,13 +450,6 @@
 - (void)addCellToWindowIfNeeded:(UIView *)cell
 {
     if ( self.traitCollection && !cell.superview ) {
-        if ( !self.settableTraitCollectionWindow ) {
-            self.settableTraitCollectionWindow = [[SettableTraitCollectionWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-            self.settableTraitCollectionWindow.settableTraitCollection = self.traitCollection;
-            self.settableTraitCollectionWindow.windowLevel = -CGFLOAT_MAX;
-            self.settableTraitCollectionWindow.rootViewController = [[UIViewController alloc] init];
-            self.settableTraitCollectionWindow.hidden = NO;
-        }
         [self.settableTraitCollectionWindow.rootViewController.view addSubview:cell];
     }
 }
