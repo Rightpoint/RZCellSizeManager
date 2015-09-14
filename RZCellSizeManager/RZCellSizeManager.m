@@ -280,7 +280,7 @@
     });
 
     SettableTraitCollectionWindow *settableTraitCollectionWindow = settableTraitCollectionWindows[self.traitCollection];
-    if (settableTraitCollectionWindow == nil || [settableTraitCollectionWindow isEqual:[NSNull null]]) {
+    if (settableTraitCollectionWindow == nil) {
         settableTraitCollectionWindow = [[SettableTraitCollectionWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         settableTraitCollectionWindow.settableTraitCollection = self.traitCollection;
         settableTraitCollectionWindow.windowLevel = -CGFLOAT_MAX + settableTraitCollectionWindows.count; // for different window levels
