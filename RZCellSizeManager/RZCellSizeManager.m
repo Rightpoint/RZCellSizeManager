@@ -475,7 +475,6 @@
                 [configuration.cell prepareForReuse];
                 configuration.configurationBlock(configuration.cell, object);
                 UIView* contentView = [configuration.cell contentView];
-                CGSize size;
                 if ( self.overideWidth == 0.0f ) {
                     size = [contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
                 }
